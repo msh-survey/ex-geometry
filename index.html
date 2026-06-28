@@ -239,13 +239,13 @@
             <div class="res-line"><span>Antenna H-Distance:</span> <b id="out-antDist">N/A</b></div>
             
             <div class="offset-title">Antenna 1 - Offsets <span class="ref-tag">(Reference: Boom Pin Center)</span></div>
-            <div class="res-line"><span>Forward (Y):</span> <b id="out-a1F">N/A</b></div>
             <div class="res-line"><span>Starboard (X):</span> <b id="out-a1S">N/A</b></div>
+            <div class="res-line"><span>Forward (Y):</span> <b id="out-a1F">N/A</b></div>
             <div class="res-line"><span>Up (Z):</span> <b id="out-a1U">N/A</b></div>
             
             <div class="offset-title">Antenna 2 - Offsets <span class="ref-tag">(Reference: Boom Pin Center)</span></div>
-            <div class="res-line"><span>Forward (Y):</span> <b id="out-a2F">N/A</b></div>
             <div class="res-line"><span>Starboard (X):</span> <b id="out-a2S">N/A</b></div>
+            <div class="res-line"><span>Forward (Y):</span> <b id="out-a2F">N/A</b></div>
             <div class="res-line"><span>Up (Z):</span> <b id="out-a2U">N/A</b></div>
             
             <button class="export-btn" onclick="exportReport1()">Download Geometry Report</button>
@@ -805,20 +805,20 @@ function closeConfirm(isConfirmed) {
     })
 },
         
-        {label: "GEOMETRY SUMMARY", isHeader: true},
+        {label: "HEADING CALC.", isHeader: true},
         {label: "Machine Heading", value: document.getElementById('out-mH').innerText},
         {label: "Antenna Heading", value: document.getElementById('out-antH').innerText},
         {label: "Heading Correction", value: document.getElementById('out-hC').innerText},
         {label: "Antenna H-Distance", value: document.getElementById('out-antDist').innerText},
         
         {label: "Antenna 1 Offsets", isHeader: true},
-        {label: "Forward (Y)", value: document.getElementById('out-a1F').innerText},
         {label: "Starboard (X)", value: document.getElementById('out-a1S').innerText},
+        {label: "Forward (Y)", value: document.getElementById('out-a1F').innerText},
         {label: "Up (Z)", value: document.getElementById('out-a1U').innerText},
         
         {label: "Antenna 2 Offsets", isHeader: true},
-        {label: "Forward (Y)", value: document.getElementById('out-a2F').innerText},
         {label: "Starboard (X)", value: document.getElementById('out-a2S').innerText},
+        {label: "Forward (Y)", value: document.getElementById('out-a2F').innerText},
         {label: "Up (Z)", value: document.getElementById('out-a2U').innerText}
     ];
 
@@ -850,20 +850,20 @@ function exportReport2() {
     })
 },
 
-        {label: "GEOMETRY LENGTHS", isHeader: true},
+        {label: "BOOM & STICK", isHeader: true},
         {label: "Boom Length", value: document.getElementById('out-boomL_cal').innerText},
         {label: "Stick Length", value: document.getElementById('out-stickL_cal').innerText},
         {label: "Boom Stick V (ΔZ)", value: document.getElementById('out-bsv').innerText},
         
-        {label: "LEVER ATTACHMENT", isHeader: true},
-        {label: "S2 Offset", value: document.getElementById('out-s2').innerText},
-        {label: "S3 Offset", value: document.getElementById('out-s3').innerText},
-        {label: "S4 Offset", value: document.getElementById('out-s4').innerText},
-        {label: "S5 Offset", value: document.getElementById('out-s5').innerText},
+        {label: "SUPPORT LEVER ATTACHMENT", isHeader: true},
+        {label: "(S2) Hor. Offset", value: document.getElementById('out-s2').innerText},
+        {label: "(S3) Z Offset", value: document.getElementById('out-s3').innerText},
+        {label: "(S4) Support Lever Length", value: document.getElementById('out-s4').innerText},
+        {label: "(S5) Drive Lever Length", value: document.getElementById('out-s5').innerText},
         
-        {label: "BUCKET & TEETH", isHeader: true},
+        {label: "BUCKET", isHeader: true},
         {label: "T5 Separation", value: document.getElementById('out-ts').innerText},
-        {label: "T1 Tooth Length", value: document.getElementById('out-t1').innerText},
+        {label: "T1 Bucket Length", value: document.getElementById('out-t1').innerText},
         {label: "T6 Tooth Angle", value: document.getElementById('out-t6').innerText}
     ];
 
