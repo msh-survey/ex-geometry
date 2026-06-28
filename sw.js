@@ -1,4 +1,4 @@
-const CACHE_NAME = 'excavator-geo-v4';
+const CACHE_NAME = 'excavator-geometry-v1.0.0';
 const ASSETS = [
   './',
   './index.html',
