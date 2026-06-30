@@ -272,15 +272,15 @@
             <div class="res-line" style="color:var(--accent-blue)"><span>Boom Stick V (ΔZ):</span> <b id="out-bsv">N/A</b></div>
             
             <div class="res-section-title" style="color: var(--pds-orange);">SUPPORT LEVER ATTACHMENT</div>
-            <div class="res-line"><span>S2:</span> <b id="out-s2">N/A</b></div>
-            <div class="res-line"><span>S3:</span> <b id="out-s3">N/A</b></div>
-            <div class="res-line"><span>S4:</span> <b id="out-s4">N/A</b></div>
-            <div class="res-line"><span>S5:</span> <b id="out-s5">N/A</b></div>
+            <div class="res-line"><span>(S2) Hor. Offset:</span> <b id="out-s2">N/A</b></div>
+            <div class="res-line"><span>(S3) Z Offset:</span> <b id="out-s3">N/A</b></div>
+            <div class="res-line"><span>(S4) Support Lever Length:</span> <b id="out-s4">N/A</b></div>
+            <div class="res-line"><span>(S5) Drive Lever Length:</span> <b id="out-s5">N/A</b></div>
             
             <div class="res-section-title" style="color: var(--pds-orange);">BUCKET</div>
-            <div class="res-line"><span>T5 (Holes separation):</span> <b id="out-ts">N/A</b></div>
-            <div class="res-line"><span>T1:</span> <b id="out-t1">N/A</b></div>
-            <div class="res-line"><span>T6 (Tooth angle):</span> <b id="out-t6" style="color:var(--pds-orange)">N/A</b></div>
+            <div class="res-line"><span>(T1) Bucket Length:</span> <b id="out-t1">N/A</b></div>
+            <div class="res-line"><span>(T5) Holes Separation:</span> <b id="out-ts">N/A</b></div>
+            <div class="res-line"><span>(T6) Tooth Angle (Tooth angle):</span> <b id="out-t6" style="color:var(--pds-orange)">N/A</b></div>
             <button class="report-btn" onclick="exportReport2()">Download Crane Configuration Report</button>
         </div>
     </div>
@@ -862,9 +862,9 @@ function exportReport2() {
         {label: "(S5) Drive Lever Length", value: document.getElementById('out-s5').innerText},
         
         {label: "BUCKET", isHeader: true},
-        {label: "T5 Separation", value: document.getElementById('out-ts').innerText},
-        {label: "T1 Bucket Length", value: document.getElementById('out-t1').innerText},
-        {label: "T6 Tooth Angle", value: document.getElementById('out-t6').innerText}
+        {label: "(T1) Bucket Length", value: document.getElementById('out-t1').innerText},
+        {label: "(T5) Holes Separation", value: document.getElementById('out-ts').innerText},
+        {label: "(T6) Tooth Angle", value: document.getElementById('out-t6').innerText}
     ];
 
     const blob = new Blob([generateHTMLReport("Crane Configuration Report", rows)], {type: 'text/html'});
