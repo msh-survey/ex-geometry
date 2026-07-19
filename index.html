@@ -202,23 +202,23 @@
             </div>
         </div>
 
-        <div class="group">
-            <span class="group-title"><span class="id-badge">BS</span> BOOM PIN STARBOARD</span>
-            <div class="input-row">
-                <div class="input-col"><label>Xs</label><input type="number" step="0.001" id="Xs" class="saveable" oninput="autoSave()"></div>
-                <div class="input-col"><label>Ys</label><input type="number" step="0.001" id="Ys" class="saveable" oninput="autoSave()"></div>
-                <div class="input-col"><label>Zs</label><input type="number" step="0.001" id="Zs" class="saveable" oninput="autoSave()"></div>
-            </div>
-        </div>
+       <div class="group">
+    <span class="group-title"><span class="id-badge">BS</span> BOOM PIN STARBOARD</span>
+    <div class="input-row">
+        <div class="input-col"><label>Xs</label><input type="number" step="0.001" id="Xs" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+        <div class="input-col"><label>Ys</label><input type="number" step="0.001" id="Ys" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+        <div class="input-col"><label>Zs</label><input type="number" step="0.001" id="Zs" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+    </div>
+</div>
 
         <div class="group">
-            <span class="group-title"><span class="id-badge">BT</span> BOOM PIN PORTSIDE</span>
-            <div class="input-row">
-                <div class="input-col"><label>Xp</label><input type="number" step="0.001" id="Xp" class="saveable" oninput="autoSave()"></div>
-                <div class="input-col"><label>Yp</label><input type="number" step="0.001" id="Yp" class="saveable" oninput="autoSave()"></div>
-                <div class="input-col"><label>Zp</label><input type="number" step="0.001" id="Zp" class="saveable" oninput="autoSave()"></div>
-            </div>
-        </div>
+    <span class="group-title"><span class="id-badge">BT</span> BOOM PIN PORTSIDE</span>
+    <div class="input-row">
+        <div class="input-col"><label>Xp</label><input type="number" step="0.001" id="Xp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+        <div class="input-col"><label>Yp</label><input type="number" step="0.001" id="Yp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+        <div class="input-col"><label>Zp</label><input type="number" step="0.001" id="Zp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+    </div>
+</div>
 
         <div class="group" style="background: #f0fff4;">
             <span class="group-title"><span class="id-badge">BU</span> BUCKET CENTER</span>
@@ -532,6 +532,19 @@ window.closeImportAlert = function() {
         document.getElementById('historyModal').style.display = 'block';
     }
 
+    function updateBoomPinCenter() {
+    const xs = getV('Xs'), ys = getV('Ys'), zs = getV('Zs');
+    const xp = getV('Xp'), yp = getV('Yp'), zp = getV('Zp');
+
+    if (xs !== null && xp !== null) {
+        document.getElementById('x_bp').value = ((xs + xp) / 2).toFixed(3);
+        document.getElementById('y_bp').value = ((ys + yp) / 2).toFixed(3);
+        document.getElementById('z_bp').value = ((zs + zp) / 2).toFixed(3);
+        
+        autoSave();
+    }
+}
+    
     function calcMeasurements() {
         const d = {
             X1: getV('X1'), Y1: getV('Y1'), Z1: getV('Z1'), X2: getV('X2'), Y2: getV('Y2'), Z2: getV('Z2'),
