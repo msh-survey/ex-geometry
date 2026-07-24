@@ -752,8 +752,8 @@ function closeConfirm(isConfirmed) {
                 </tr>`;
         }
     });
-
-    return `
+        
+return `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -761,32 +761,50 @@ function closeConfirm(isConfirmed) {
         <title>${title}</title>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+            
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+
             body { 
                 font-family: 'Inter', sans-serif; 
-                line-height: 1.3; 
+                line-height: 1.4; 
                 color: #334155; 
                 margin: 0; 
-                padding: 20px; 
+                padding: 10px; 
             }
-            .report-container { 
-                max-width: 700px; 
+
+             .report-container { 
+                width: 100%; 
+                max-width: 100%; 
                 margin: 0 auto; 
                 border: 1px solid #e2e8f0; 
-                padding: 25px;
+                padding: 20px;
+                box-sizing: border-box;
             }
+
             .main-title { 
                 color: #0f172a; 
-                font-size: 18px; 
+                font-size: 20px; 
                 font-weight: 800; 
                 margin: 0 0 15px 0;
                 padding-bottom: 8px;
-                border-bottom: 2px solid #38bdf8;
+                border-bottom: 3px solid #38bdf8;
                 text-transform: uppercase;
             }
-            .data-table { width: 100%; border-collapse: collapse; }
+
+            .data-table { 
+                width: 100%; 
+                border-collapse: collapse; 
+            }
+
             @media print {
                 body { padding: 0; }
-                .report-container { border: none; }
+                .report-container { 
+                    border: none; 
+                    padding: 0;
+                }
             }
         </style>
     </head>
@@ -800,7 +818,7 @@ function closeConfirm(isConfirmed) {
     </body>
     </html>`;
 }
-
+   
     function exportReport1() {
     // Get Surveyor and Machine info
     const sName = document.getElementById('surveyor_name').value || "N/A";
