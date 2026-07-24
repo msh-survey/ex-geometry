@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <link rel="manifest" href="manifest.json">
-
-<link rel="apple-touch-icon" href="icon-192.png">
-
-<meta name="theme-color" content="#0f172a">
-
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Excavator Geometry</title>
+
+    <!-- مكتبة تحويل الـ HTML لـ PDF وتنزيله مباشرة -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <style>
         :root {
             --primary-bg: #0f172a;
@@ -62,6 +63,11 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
 
         /* Help Styles */
         .help-section { padding: 15px; line-height: 1.6; color: #334155; }
@@ -136,24 +142,16 @@
         .history-item { padding: 10px; border-bottom: 1px solid #eee; font-size: 12px; line-height: 1.4; }
 
         .footer { padding: 25px; font-size: 11px; color: #64748b; text-align: center; background: #fafafa; border-top: 1px solid #eee; }
-        
         .id-badge { background: #e2e8f0; color: #1e293b; padding: 2px 5px; border-radius: 4px; font-size: 9px; margin-right: 5px; vertical-align: middle; }
     </style>
 </head>
 <body onload="autoLoad()">
     <div id="splash-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #0f172a; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease;">
-    <img src="icon-512.png" style="width: 180px; height: 180px; margin-bottom: 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
-    <h1 style="color: white; font-size: 1.6rem; font-family: sans-serif; margin: 0; letter-spacing: 1px;">EXCAVATOR GEOMETRY</h1>
-    <p style="color: #38bdf8; font-size: 1rem; margin-top: 10px; font-family: sans-serif;">By: Mohamed Shehata</p>
-    <div style="margin-top: 30px; width: 35px; height: 35px; border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #38bdf8; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
-</div>
-
-   <style>
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-</style>
+        <img src="icon-512.png" style="width: 180px; height: 180px; margin-bottom: 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
+        <h1 style="color: white; font-size: 1.6rem; font-family: sans-serif; margin: 0; letter-spacing: 1px;">EXCAVATOR GEOMETRY</h1>
+        <p style="color: #38bdf8; font-size: 1rem; margin-top: 10px; font-family: sans-serif;">By: Mohamed Shehata</p>
+        <div style="margin-top: 30px; width: 35px; height: 35px; border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #38bdf8; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+    </div>
 
 <div class="card">
     <div class="header">
@@ -166,17 +164,17 @@
     </div>
 
     <div class="tabs">
-    <button class="tab-btn active" id="btn-measurements" onclick="openTab(event, 'tab-measurements')">Geometry</button>
-    <button class="tab-btn" id="btn-calibration" onclick="openTab(event, 'tab-calibration')">Crane Config</button>
-    <button class="tab-btn" id="btn-diagram" onclick="openTab(event, 'tab-diagram')">Diagram</button>
-    <button class="tab-btn" id="btn-help" onclick="openTab(event, 'tab-help')">Help</button>
-</div>
+        <button class="tab-btn active" id="btn-measurements" onclick="openTab(event, 'tab-measurements')">Geometry</button>
+        <button class="tab-btn" id="btn-calibration" onclick="openTab(event, 'tab-calibration')">Crane Config</button>
+        <button class="tab-btn" id="btn-diagram" onclick="openTab(event, 'tab-diagram')">Diagram</button>
+        <button class="tab-btn" id="btn-help" onclick="openTab(event, 'tab-help')">Help</button>
+    </div>
 
     <div class="import-section" style="margin-top: 10px; padding: 0 10px;">
         <button onclick="document.getElementById('csvFileInput').click()" 
                 style="width:100%; padding:12px; background:#ef4444; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:14px; display: flex; align-items: center; justify-content: center; gap: 8px;">
             <span>📂</span> Import Survey CSV (ID, X, Y, Z)
-            </button>
+        </button>
     </div>
 
     <div id="tab-measurements" class="tab-content active">
@@ -203,22 +201,22 @@
         </div>
 
        <div class="group">
-    <span class="group-title"><span class="id-badge">BS</span> BOOM PIN STARBOARD</span>
-    <div class="input-row">
-        <div class="input-col"><label>Xs</label><input type="number" step="0.001" id="Xs" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
-        <div class="input-col"><label>Ys</label><input type="number" step="0.001" id="Ys" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
-        <div class="input-col"><label>Zs</label><input type="number" step="0.001" id="Zs" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
-    </div>
-</div>
+            <span class="group-title"><span class="id-badge">BS</span> BOOM PIN STARBOARD</span>
+            <div class="input-row">
+                <div class="input-col"><label>Xs</label><input type="number" step="0.001" id="Xs" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+                <div class="input-col"><label>Ys</label><input type="number" step="0.001" id="Ys" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+                <div class="input-col"><label>Zs</label><input type="number" step="0.001" id="Zs" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+            </div>
+        </div>
 
         <div class="group">
-    <span class="group-title"><span class="id-badge">BT</span> BOOM PIN PORTSIDE</span>
-    <div class="input-row">
-        <div class="input-col"><label>Xp</label><input type="number" step="0.001" id="Xp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
-        <div class="input-col"><label>Yp</label><input type="number" step="0.001" id="Yp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
-        <div class="input-col"><label>Zp</label><input type="number" step="0.001" id="Zp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
-    </div>
-</div>
+            <span class="group-title"><span class="id-badge">BT</span> BOOM PIN PORTSIDE</span>
+            <div class="input-row">
+                <div class="input-col"><label>Xp</label><input type="number" step="0.001" id="Xp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+                <div class="input-col"><label>Yp</label><input type="number" step="0.001" id="Yp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+                <div class="input-col"><label>Zp</label><input type="number" step="0.001" id="Zp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+            </div>
+        </div>
 
         <div class="group" style="background: #f0fff4;">
             <span class="group-title"><span class="id-badge">BU</span> BUCKET CENTER</span>
@@ -309,79 +307,79 @@
     </div>
 
     <div id="tab-help" class="tab-content">
-    <div class="main-container help-section">
-        
-        <div style="background: #e0f2fe; padding: 15px; border-radius: 10px; border-left: 5px solid #38bdf8; margin-bottom: 20px;">
-            <p style="margin: 0; font-size: 14px; color: #0369a1; line-height: 1.5;">
-                <strong>Note:</strong> Please refer to the <strong>Diagram</strong> tab to visualize the points to be surveyed and understand what each element represents in both inputs and calculation results.
-            </p>
-        </div>
+        <div class="main-container help-section">
+            <div style="background: #e0f2fe; padding: 15px; border-radius: 10px; border-left: 5px solid #38bdf8; margin-bottom: 20px;">
+                <p style="margin: 0; font-size: 14px; color: #0369a1; line-height: 1.5;">
+                    <strong>Note:</strong> Please refer to the <strong>Diagram</strong> tab to visualize the points to be surveyed and understand what each element represents in both inputs and calculation results.
+                </p>
+            </div>
 
-        <div style="background: #fff9db; padding: 15px; border-radius: 10px; border-left: 5px solid #f59e0b; margin-bottom: 20px;">
-            <p style="margin: 0; font-size: 14px; color: #856404; line-height: 1.5;">
-                <strong>Important:</strong> This application is a support tool that provides results based on the data provided. Therefore, the most critical factor is <strong>measurements accuracy</strong> to obtain precise results.
-            </p>
-        </div>
+            <div style="background: #fff9db; padding: 15px; border-radius: 10px; border-left: 5px solid #f59e0b; margin-bottom: 20px;">
+                <p style="margin: 0; font-size: 14px; color: #856404; line-height: 1.5;">
+                    <strong>Important:</strong> This application is a support tool that provides results based on the data provided. Therefore, the most critical factor is <strong>measurements accuracy</strong> to obtain precise results.
+                </p>
+            </div>
 
-       <div class="help-item">
-            <span class="help-title">* Best Practices for Accuracy</span>
-            <ul class="help-text" style="padding-left: 20px;">
-                <li>The excavator should be in a level position (Pitch and Roll as close to 0 as possible).</li>
-                <li>It is preferred to extend the excavator arm (Boom and Stick) to the maximum reach to ensure higher accuracy in <strong>Heading</strong> calculations.</li>
-                <li>For Antenna 1 & 2 Measurement: When the prism is above the antenna center, add the vertical antenna dimension from top to bottom (D<sub>A</sub>) to the prism height (H<sub>R</sub>) to get the bottom of the antenna height (H<sub>A</sub>).</li>
-                <li>The elevation of the <strong>Boom Pin Starboard (BS)</strong> must be equal to the elevation of the <strong>Boom Pin Portside (BT)</strong>. If there is any big difference, the observation must be reviewed.</li>
-                <li><strong>T1 Point:</strong> (Bucket Length)The perpendicular line connecting the <strong>Bucket Pin (BP)</strong> to the <strong>Bucket Teeth (T1 Point)</strong>.</li>
-                <li>You can use <strong>Global Coordinates</strong> or assume <strong>Local Coordinates</strong>; however, using Global coordinates is preferred to obtain the <strong>Actual Machine Heading</strong>.</li>
-                <li>In both cases (Global or Local), the <strong>Heading Correction</strong> value will remain unaffected.</li>
-            </ul>
-        </div>
+           <div class="help-item">
+                <span class="help-title">* Best Practices for Accuracy</span>
+                <ul class="help-text" style="padding-left: 20px;">
+                    <li>The excavator should be in a level position (Pitch and Roll as close to 0 as possible).</li>
+                    <li>It is preferred to extend the excavator arm (Boom and Stick) to the maximum reach to ensure higher accuracy in <strong>Heading</strong> calculations.</li>
+                    <li>For Antenna 1 & 2 Measurement: When the prism is above the antenna center, add the vertical antenna dimension from top to bottom (D<sub>A</sub>) to the prism height (H<sub>R</sub>) to get the bottom of the antenna height (H<sub>A</sub>).</li>
+                    <li>The elevation of the <strong>Boom Pin Starboard (BS)</strong> must be equal to the elevation of the <strong>Boom Pin Portside (BT)</strong>. If there is any big difference, the observation must be reviewed.</li>
+                    <li><strong>T1 Point:</strong> (Bucket Length)The perpendicular line connecting the <strong>Bucket Pin (BP)</strong> to the <strong>Bucket Teeth (T1 Point)</strong>.</li>
+                    <li>You can use <strong>Global Coordinates</strong> or assume <strong>Local Coordinates</strong>; however, using Global coordinates is preferred to obtain the <strong>Actual Machine Heading</strong>.</li>
+                    <li>In both cases (Global or Local), the <strong>Heading Correction</strong> value will remain unaffected.</li>
+                </ul>
+            </div>
 
-        <div class="help-item">
-            <span class="help-title">* Import Survey CSV</span>
-            <ul class="help-text" style="padding-left: 20px;">
-                <li>You can upload points via a CSV file to avoid manual typing errors and save time.</li>
-                <li>The CSV file must contain four columns in this order: <strong>(ID, Easting, Northing, Elevation)</strong>.</li>
-                <li>Points do not need to be in any specific order; the app automatically maps them by ID.</li>
-                <li>Required IDs for auto-mapping: <strong>A1, A2, BS, BT, BU, ST, BP, S3, S4, S5, T1</strong>.</li>
-            </ul>
-        </div>
+            <div class="help-item">
+                <span class="help-title">* Import Survey CSV</span>
+                <ul class="help-text" style="padding-left: 20px;">
+                    <li>You can upload points via a CSV file to avoid manual typing errors and save time.</li>
+                    <li>The CSV file must contain four columns in this order: <strong>(ID, Easting, Northing, Elevation)</strong>.</li>
+                    <li>Points do not need to be in any specific order; the app automatically maps them by ID.</li>
+                    <li>Required IDs for auto-mapping: <strong>A1, A2, BS, BT, BU, ST, BP, S3, S4, S5, T1</strong>.</li>
+                </ul>
+            </div>
 
-        <div class="help-item">
-            <span class="help-title">* Auto-Save & History</span>
-            <p class="help-text">The app saves your last inputs automatically. Use the "History" button to review the last 10 calculations.</p>
-        </div>
-        
-        <div class="help-item">
-            <span class="help-title">* Support & Suggestions</span>
-            <p class="help-text">For any inquiries or suggestions, you can click on my name in the header to be redirected to my contact page.</p>
+            <div class="help-item">
+                <span class="help-title">* Auto-Save & History</span>
+                <p class="help-text">The app saves your last inputs automatically. Use the "History" button to review the last 10 calculations.</p>
+            </div>
+            
+            <div class="help-item">
+                <span class="help-title">* Support & Suggestions</span>
+                <p class="help-text">For any inquiries or suggestions, you can click on my name in the header to be redirected to my contact page.</p>
+            </div>
         </div>
     </div>
-</div>
+
     <div class="action-btns-container">
         <button class="clear-btn" onclick="clearPageOnly()">clear page</button>
         <button class="history-bottom-btn" onclick="showHistoryByActiveTab()">History</button>
         <button class="reset-btn" onclick="resetHistoryOnly()">reset history</button>
     </div>
 
-    <!-- Survey Info Section - Fixed Layout -->
-<div class="survey-info-container" style="margin: 0 20px 20px; padding: 15px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; box-sizing: border-box;">
-    <div style="display: flex; flex-direction: column; gap: 12px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <label style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap; width: 100px;">SURVEYOR NAME:</label>
-            <input type="text" id="surveyor_name" class="saveable" placeholder="Enter Name" style="flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none;" oninput="autoSave()">
-        </div>
-        
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <label style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap; width: 100px;">MACHINE MODEL:</label>
-            <input type="text" id="machine_model" class="saveable" placeholder="Enter Model" style="flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none;" oninput="autoSave()">
-        </div>
-        
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <label style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap; width: 100px;">MACHINE NO.:</label>
-            <input type="text" id="machine_no" class="saveable" placeholder="Enter Machine No." style="flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none;" oninput="autoSave()">
+    <!-- Survey Info Section -->
+    <div class="survey-info-container" style="margin: 0 20px 20px; padding: 15px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; box-sizing: border-box;">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <label style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap; width: 100px;">SURVEYOR NAME:</label>
+                <input type="text" id="surveyor_name" class="saveable" placeholder="Enter Name" style="flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none;" oninput="autoSave()">
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <label style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap; width: 100px;">MACHINE MODEL:</label>
+                <input type="text" id="machine_model" class="saveable" placeholder="Enter Model" style="flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none;" oninput="autoSave()">
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <label style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap; width: 100px;">MACHINE NO.:</label>
+                <input type="text" id="machine_no" class="saveable" placeholder="Enter Machine No." style="flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none;" oninput="autoSave()">
+            </div>
         </div>
     </div>
-</div>
     
     <div class="footer">
         <strong>To Install as Mobile App:</strong><br>
@@ -425,12 +423,28 @@
         <button class="print-choice-btn" style="background: #cbd5e1; color: #334155; width:100%; padding:12px; border-radius:8px; border:none; font-weight:bold; cursor:pointer;" onclick="closePrintModal()">Cancel</button>
     </div>
 </div>
-    
+
 <script>
     const getV = (id) => { const el = document.getElementById(id); return el && el.value !== "" ? parseFloat(el.value) : null; };
     const format = (val, unit = "") => (val === null || isNaN(val)) ? "N/A" : val.toFixed(3) + unit;
     function dist3D(p1, p2) { if (!p1 || !p2) return null; return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2) + Math.pow(p2.z - p1.z, 2)); }
     function getP(id_p) { const x = getV('x_'+id_p), y = getV('y_'+id_p), z = getV('z_'+id_p); if (x === null || y === null || z === null) return null; return { x, y, z }; }
+
+    window.showImportAlert = function(count) {
+        const alertBox = document.getElementById('importAlert');
+        const alertMsg = document.getElementById('importAlertMessage');
+        if(alertBox && alertMsg) {
+            alertMsg.innerText = `Imported ${count} points successfully.`;
+            alertBox.style.display = 'flex';
+        }
+    };
+
+    window.closeImportAlert = function() {
+        const alertBox = document.getElementById('importAlert');
+        if(alertBox) {
+            alertBox.style.display = 'none';
+        }
+    };
 
     function handleCSV(input) {
         const file = input.files[0];
@@ -475,27 +489,11 @@
                 document.getElementById('z_bp').value = ((zs+zp)/2).toFixed(3);
             }
 
-    window.showImportAlert = function(count) {
-    const alertBox = document.getElementById('importAlert');
-    const alertMsg = document.getElementById('importAlertMessage');
-    if(alertBox && alertMsg) {
-        alertMsg.innerText = `Imported ${count} points successfully.`;
-        alertBox.style.display = 'flex';
+            showImportAlert(matchCount);
+            autoSave();
+        };
+        reader.readAsText(file);
     }
-};
-
-window.closeImportAlert = function() {
-    const alertBox = document.getElementById('importAlert');
-    if(alertBox) {
-        alertBox.style.display = 'none';
-    }
-};
-            
-           showImportAlert(matchCount);
-        autoSave();
-    };
-    reader.readAsText(file);
-}
 
     function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
@@ -546,17 +544,16 @@ window.closeImportAlert = function() {
     }
 
     function updateBoomPinCenter() {
-    const xs = getV('Xs'), ys = getV('Ys'), zs = getV('Zs');
-    const xp = getV('Xp'), yp = getV('Yp'), zp = getV('Zp');
+        const xs = getV('Xs'), ys = getV('Ys'), zs = getV('Zs');
+        const xp = getV('Xp'), yp = getV('Yp'), zp = getV('Zp');
 
-    if (xs !== null && xp !== null) {
-        document.getElementById('x_bp').value = ((xs + xp) / 2).toFixed(3);
-        document.getElementById('y_bp').value = ((ys + yp) / 2).toFixed(3);
-        document.getElementById('z_bp').value = ((zs + zp) / 2).toFixed(3);
-        
-        autoSave();
+        if (xs !== null && xp !== null) {
+            document.getElementById('x_bp').value = ((xs + xp) / 2).toFixed(3);
+            document.getElementById('y_bp').value = ((ys + yp) / 2).toFixed(3);
+            document.getElementById('z_bp').value = ((zs + zp) / 2).toFixed(3);
+            autoSave();
+        }
     }
-}
     
     function calcMeasurements() {
         const d = {
@@ -698,351 +695,198 @@ window.closeImportAlert = function() {
     }
 
     function clearPageOnly() {
-    const activeTab = document.querySelector('.tab-content.active');
-    const activeTabId = activeTab.id;
+        const activeTab = document.querySelector('.tab-content.active');
+        const activeTabId = activeTab.id;
 
-    // 1. Clear input values from the screen
-    activeTab.querySelectorAll('input').forEach(input => input.value = "");
-    
-    // 2. Reset results text to N/A
-    activeTab.querySelectorAll('.results-area b').forEach(b => b.innerText = "N/A");
+        activeTab.querySelectorAll('input').forEach(input => input.value = "");
+        activeTab.querySelectorAll('.results-area b').forEach(b => b.innerText = "N/A");
 
-    // 3. Remove stored data from localStorage based on active tab
-    if (activeTabId === 'tab-measurements') {
-        const resIds1 = ['out-mH','out-antH','out-hC','out-antDist','out-a1F','out-a1S','out-a1U','out-a2F','out-a2S','out-a2U'];
-        resIds1.forEach(id => localStorage.removeItem('res_' + id));
-        localStorage.setItem('show_res1', 'false'); 
-    } else if (activeTabId === 'tab-calibration') {
-        const resIds2 = ['out-boomL_cal','out-stickL_cal','out-bsv','out-s2','out-s3','out-s4','out-s5','out-ts','out-t1','out-t6'];
-        resIds2.forEach(id => localStorage.removeItem('res_' + id));
-        localStorage.setItem('show_res2', 'false');
+        if (activeTabId === 'tab-measurements') {
+            const resIds1 = ['out-mH','out-antH','out-hC','out-antDist','out-a1F','out-a1S','out-a1U','out-a2F','out-a2S','out-a2U'];
+            resIds1.forEach(id => localStorage.removeItem('res_' + id));
+            localStorage.setItem('show_res1', 'false'); 
+        } else if (activeTabId === 'tab-calibration') {
+            const resIds2 = ['out-boomL_cal','out-stickL_cal','out-bsv','out-s2','out-s3','out-s4','out-s5','out-ts','out-t1','out-t6'];
+            resIds2.forEach(id => localStorage.removeItem('res_' + id));
+            localStorage.setItem('show_res2', 'false');
+        }
+
+        autoSave();
     }
-
-    // 4. Update the saved inputs state
-    autoSave();
-}
 
     function resetHistoryOnly() {
-    // Show the custom modal instead of browser confirm
-    document.getElementById('customConfirm').style.display = 'flex';
-}
-
-function closeConfirm(isConfirmed) {
-    // Hide the modal
-    document.getElementById('customConfirm').style.display = 'none';
-    
-    // Execute reset if OK is clicked
-    if (isConfirmed) {
-        localStorage.clear();
-        location.reload();
+        document.getElementById('customConfirm').style.display = 'flex';
     }
-}
 
-    function generateHTMLReport(title, dataRows) {
-    let rowsHtml = '';
-    
-    dataRows.forEach(row => {
-        if(row.isHeader) {
-            // Compact Header Design
-            rowsHtml += `
-                <tr>
-                    <td colspan="2" style="padding: 15px 0 5px 0;">
-                        <div style="background: #f1f5f9; padding: 5px 12px; border-left: 3px solid #38bdf8; color: #1e293b; font-size: 11px; font-weight: 800; text-transform: uppercase;">
-                            ${row.label}
-                        </div>
-                    </td>
-                </tr>`;
-        } else {
-            // Compact Data Rows
-            rowsHtml += `
-                <tr style="border-bottom: 1px solid #f1f5f9;">
-                    <td style="padding: 6px 12px; color: #64748b; font-size: 12px; width: 200px;">${row.label}</td>
-                    <td style="padding: 6px 12px; color: #0f172a; font-size: 12px; font-weight: 600; text-align: left;">${row.value}</td>
-                </tr>`;
+    function closeConfirm(isConfirmed) {
+        document.getElementById('customConfirm').style.display = 'none';
+        if (isConfirmed) {
+            localStorage.clear();
+            location.reload();
         }
-    });
-
-    return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>${title}</title>
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-            body { 
-                font-family: 'Inter', sans-serif; 
-                line-height: 1.3; 
-                color: #334155; 
-                margin: 0; 
-                padding: 20px; 
-            }
-            .report-container { 
-                max-width: 700px; 
-                margin: 0 auto; 
-                border: 1px solid #e2e8f0; 
-                padding: 25px;
-            }
-            .main-title { 
-                color: #0f172a; 
-                font-size: 18px; 
-                font-weight: 800; 
-                margin: 0 0 15px 0;
-                padding-bottom: 8px;
-                border-bottom: 2px solid #38bdf8;
-                text-transform: uppercase;
-            }
-            .data-table { width: 100%; border-collapse: collapse; }
-            @media print {
-                body { padding: 0; }
-                .report-container { border: none; }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="report-container">
-            <h1 class="main-title">${title}</h1>
-            <table class="data-table">
-                ${rowsHtml}
-            </table>
-        </div>
-    </body>
-    </html>`;
-}
-
- let currentCallingTab = 'geometry';
-
-function openPrintModal(callingTab) {
-    currentCallingTab = callingTab;
-    document.getElementById('printModal').style.display = 'block';
-}
-
-function closePrintModal() {
-    document.getElementById('printModal').style.display = 'none';
-}
-
-function confirmPrint(option) {
-    closePrintModal();
-    if (option === 'current') {
-        if (currentCallingTab === 'geometry') {
-            printPDFReport([getGeometryRows()]);
-        } else {
-            printPDFReport([getCalibrationRows()]);
-        }
-    } else {
-        printPDFReport([getGeometryRows(), getCalibrationRows()]);
     }
-}
 
-function getSurveyInfoRows() {
-    const sName = document.getElementById('surveyor_name') ? document.getElementById('surveyor_name').value : "N/A";
-    const mModel = document.getElementById('machine_model') ? document.getElementById('machine_model').value : "N/A";
-    const mNo = document.getElementById('machine_no') ? document.getElementById('machine_no').value : "N/A";
-    return [
-        {label: "SURVEY INFORMATION", isHeader: true},
-        {label: "Surveyor Name", value: sName || "N/A"},
-        {label: "Machine Model", value: mModel || "N/A"},
-        {label: "Machine No.", value: mNo || "N/A"},
-        {
-            label: "Date", 
-            value: new Date().toLocaleDateString('en-GB', { 
-                weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' 
-            })
-        }
-    ];
-}
+    let currentCallingTab = 'geometry';
 
-function getGeometryRows() {
-    return {
-        title: "EXCAVATOR GEOMETRY REPORT",
-        rows: [
-            ...getSurveyInfoRows(),
-            {label: "HEADING CALCULATION", isHeader: true},
-            {label: "Machine Heading", value: document.getElementById('out-mH').innerText},
-            {label: "Antenna Heading", value: document.getElementById('out-antH').innerText},
-            {label: "Heading Correction", value: document.getElementById('out-hC').innerText},
-            {label: "Antenna H-Distance", value: document.getElementById('out-antDist').innerText},
-            
-            {label: "ANTENNA 1 OFFSETS", isHeader: true},
-            {label: "Starboard (X)", value: document.getElementById('out-a1S').innerText},
-            {label: "Forward (Y)", value: document.getElementById('out-a1F').innerText},
-            {label: "Up (Z)", value: document.getElementById('out-a1U').innerText},
-            
-            {label: "ANTENNA 2 OFFSETS", isHeader: true},
-            {label: "Starboard (X)", value: document.getElementById('out-a2S').innerText},
-            {label: "Forward (Y)", value: document.getElementById('out-a2F').innerText},
-            {label: "Up (Z)", value: document.getElementById('out-a2U').innerText}
-        ]
-    };
-}
+    function openPrintModal(callingTab) {
+        currentCallingTab = callingTab;
+        document.getElementById('printModal').style.display = 'block';
+    }
 
-function getCalibrationRows() {
-    return {
-        title: "CRANE CONFIGURATION REPORT",
-        rows: [
-            ...getSurveyInfoRows(),
-            {label: "BOOM & STICK", isHeader: true},
-            {label: "Boom Length", value: document.getElementById('out-boomL_cal').innerText},
-            {label: "Stick Length", value: document.getElementById('out-stickL_cal').innerText},
-            {label: "Boom Stick V (ΔZ)", value: document.getElementById('out-bsv').innerText},
-            
-            {label: "SUPPORT LEVER ATTACHMENT", isHeader: true},
-            {label: "(S2) Hor. Offset", value: document.getElementById('out-s2').innerText},
-            {label: "(S3) Z Offset", value: document.getElementById('out-s3').innerText},
-            {label: "(S4) Support Lever Length", value: document.getElementById('out-s4').innerText},
-            {label: "(S5) Drive Lever Length", value: document.getElementById('out-s5').innerText},
-            
-            {label: "BUCKET", isHeader: true},
-            {label: "(T1) Bucket Length", value: document.getElementById('out-t1').innerText},
-            {label: "(T5) Holes Separation", value: document.getElementById('out-ts').innerText},
-            {label: "(T6) Tooth Angle", value: document.getElementById('out-t6').innerText}
-        ]
-    };
-}
+    function closePrintModal() {
+        document.getElementById('printModal').style.display = 'none';
+    }
 
-function printPDFReport(sections) {
-    let printWindow = window.open('', '_blank');
-    let contentHtml = '';
-
-    sections.forEach((sec, idx) => {
-        let rowsHtml = '';
-        sec.rows.forEach(row => {
-            if(row.isHeader) {
-                rowsHtml += `
-                    <tr>
-                        <td colspan="2" class="section-hdr">${row.label}</td>
-                    </tr>`;
+    function confirmPrint(option) {
+        closePrintModal();
+        if (option === 'current') {
+            if (currentCallingTab === 'geometry') {
+                printPDFReport([getGeometryRows()]);
             } else {
-                rowsHtml += `
-                    <tr>
-                        <td class="lbl-col">${row.label}</td>
-                        <td class="val-col">${row.value}</td>
-                    </tr>`;
+                printPDFReport([getCalibrationRows()]);
             }
+        } else {
+            printPDFReport([getGeometryRows(), getCalibrationRows()]);
+        }
+    }
+
+    function getSurveyInfoRows() {
+        const sName = document.getElementById('surveyor_name') ? document.getElementById('surveyor_name').value : "N/A";
+        const mModel = document.getElementById('machine_model') ? document.getElementById('machine_model').value : "N/A";
+        const mNo = document.getElementById('machine_no') ? document.getElementById('machine_no').value : "N/A";
+        return [
+            {label: "SURVEY INFORMATION", isHeader: true},
+            {label: "Surveyor Name", value: sName || "N/A"},
+            {label: "Machine Model", value: mModel || "N/A"},
+            {label: "Machine No.", value: mNo || "N/A"},
+            {
+                label: "Date", 
+                value: new Date().toLocaleDateString('en-GB', { 
+                    weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' 
+                })
+            }
+        ];
+    }
+
+    function getGeometryRows() {
+        return {
+            title: "EXCAVATOR GEOMETRY REPORT",
+            rows: [
+                ...getSurveyInfoRows(),
+                {label: "HEADING CALCULATION", isHeader: true},
+                {label: "Machine Heading", value: document.getElementById('out-mH').innerText},
+                {label: "Antenna Heading", value: document.getElementById('out-antH').innerText},
+                {label: "Heading Correction", value: document.getElementById('out-hC').innerText},
+                {label: "Antenna H-Distance", value: document.getElementById('out-antDist').innerText},
+                
+                {label: "ANTENNA 1 OFFSETS", isHeader: true},
+                {label: "Starboard (X)", value: document.getElementById('out-a1S').innerText},
+                {label: "Forward (Y)", value: document.getElementById('out-a1F').innerText},
+                {label: "Up (Z)", value: document.getElementById('out-a1U').innerText},
+                
+                {label: "ANTENNA 2 OFFSETS", isHeader: true},
+                {label: "Starboard (X)", value: document.getElementById('out-a2S').innerText},
+                {label: "Forward (Y)", value: document.getElementById('out-a2F').innerText},
+                {label: "Up (Z)", value: document.getElementById('out-a2U').innerText}
+            ]
+        };
+    }
+
+    function getCalibrationRows() {
+        return {
+            title: "CRANE CONFIGURATION REPORT",
+            rows: [
+                ...getSurveyInfoRows(),
+                {label: "BOOM & STICK", isHeader: true},
+                {label: "Boom Length", value: document.getElementById('out-boomL_cal').innerText},
+                {label: "Stick Length", value: document.getElementById('out-stickL_cal').innerText},
+                {label: "Boom Stick V (ΔZ)", value: document.getElementById('out-bsv').innerText},
+                
+                {label: "SUPPORT LEVER ATTACHMENT", isHeader: true},
+                {label: "(S2) Hor. Offset", value: document.getElementById('out-s2').innerText},
+                {label: "(S3) Z Offset", value: document.getElementById('out-s3').innerText},
+                {label: "(S4) Support Lever Length", value: document.getElementById('out-s4').innerText},
+                {label: "(S5) Drive Lever Length", value: document.getElementById('out-s5').innerText},
+                
+                {label: "BUCKET", isHeader: true},
+                {label: "(T1) Bucket Length", value: document.getElementById('out-t1').innerText},
+                {label: "(T5) Holes Separation", value: document.getElementById('out-ts').innerText},
+                {label: "(T6) Tooth Angle", value: document.getElementById('out-t6').innerText}
+            ]
+        };
+    }
+
+    /* دالة التصدير المباشر لـ PDF بدون فتح نافذة الطباعة */
+    function printPDFReport(sections) {
+        let contentHtml = '';
+
+        sections.forEach((sec, idx) => {
+            let rowsHtml = '';
+            sec.rows.forEach(row => {
+                if(row.isHeader) {
+                    rowsHtml += `
+                        <tr>
+                            <td colspan="2" class="section-hdr">${row.label}</td>
+                        </tr>`;
+                } else {
+                    rowsHtml += `
+                        <tr>
+                            <td class="lbl-col">${row.label}</td>
+                            <td class="val-col">${row.value}</td>
+                        </tr>`;
+                }
+            });
+
+            contentHtml += `
+                <div class="page-container ${idx > 0 ? 'page-break' : ''}">
+                    <div class="hdr-bar">
+                        <h1>EXCAVATOR GEOMETRY SYSTEM</h1>
+                        <h2>${sec.title}</h2>
+                    </div>
+                    <table class="report-tbl">
+                        ${rowsHtml}
+                    </table>
+                    <div class="report-ftr">
+                        Generated by Excavator Geometry Assistant • Created by Mohamed Shehata
+                    </div>
+                </div>
+            `;
         });
 
-        contentHtml += `
-            <div class="page-container ${idx > 0 ? 'page-break' : ''}">
-                <div class="hdr-bar">
-                    <h1>EXCAVATOR GEOMETRY SYSTEM</h1>
-                    <h2>${sec.title}</h2>
-                </div>
-                <table class="report-tbl">
-                    ${rowsHtml}
-                </table>
-                <div class="report-ftr">
-                    Generated by Excavator Geometry Assistant • Created by Mohamed Shehata
-                </div>
-            </div>
+        const element = document.createElement('div');
+        element.innerHTML = `
+            <style>
+                * { box-sizing: border-box; }
+                .page-container { width: 100%; padding: 20px; font-family: 'Segoe UI', Arial, sans-serif; color: #0f172a; }
+                .page-break { page-break-before: always; }
+                .hdr-bar { background: #0f172a; color: white; padding: 15px 20px; border-radius: 8px; border-bottom: 4px solid #38bdf8; margin-bottom: 15px; }
+                .hdr-bar h1 { margin: 0; font-size: 16px; letter-spacing: 0.5px; }
+                .hdr-bar h2 { margin: 5px 0 0; font-size: 12px; color: #38bdf8; text-transform: uppercase; font-weight: 600; }
+                .report-tbl { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                .section-hdr { background: #f1f5f9; color: #0f172a; font-weight: 800; font-size: 11px; padding: 8px 12px; border-left: 4px solid #38bdf8; text-transform: uppercase; }
+                .lbl-col { padding: 8px 12px; color: #475569; font-size: 12px; border-bottom: 1px solid #e2e8f0; width: 50%; }
+                .val-col { padding: 8px 12px; color: #0f172a; font-size: 12px; font-weight: bold; text-align: right; border-bottom: 1px solid #e2e8f0; width: 50%; }
+                .report-ftr { border-top: 1px solid #e2e8f0; padding-top: 10px; font-size: 10px; color: #94a3b8; text-align: center; margin-top: 30px; }
+            </style>
+            ${contentHtml}
         `;
-    });
 
-    let fullDocument = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Excavator Geometry Report</title>
-        <style>
-            @page {
-                size: A4 portrait;
-                margin: 12mm;
-            }
-            * { box-sizing: border-box; }
-            body {
-                font-family: 'Segoe UI', Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                background: #fff;
-                color: #0f172a;
-            }
-            .page-container {
-                width: 100%;
-                min-height: 270mm;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-            .page-break {
-                page-break-before: always;
-            }
-            .hdr-bar {
-                background: #0f172a;
-                color: white;
-                padding: 18px 20px;
-                border-radius: 8px;
-                border-bottom: 4px solid #38bdf8;
-                margin-bottom: 15px;
-            }
-            .hdr-bar h1 { margin: 0; font-size: 18px; letter-spacing: 0.5px; }
-            .hdr-bar h2 { margin: 5px 0 0; font-size: 13px; color: #38bdf8; text-transform: uppercase; font-weight: 600; }
-            
-            .report-tbl {
-                width: 100%;
-                border-collapse: collapse;
-                margin-bottom: auto;
-            }
-            .section-hdr {
-                background: #f1f5f9;
-                color: #0f172a;
-                font-weight: 800;
-                font-size: 11px;
-                padding: 8px 12px;
-                border-left: 4px solid #38bdf8;
-                text-transform: uppercase;
-            }
-            .lbl-col {
-                padding: 8px 12px;
-                color: #475569;
-                font-size: 12px;
-                border-bottom: 1px solid #e2e8f0;
-                width: 50%;
-            }
-            .val-col {
-                padding: 8px 12px;
-                color: #0f172a;
-                font-size: 12px;
-                font-weight: bold;
-                text-align: right;
-                border-bottom: 1px solid #e2e8f0;
-                width: 50%;
-            }
-            .report-ftr {
-                border-top: 1px solid #e2e8f0;
-                padding-top: 10px;
-                font-size: 10px;
-                color: #94a3b8;
-                text-align: center;
-            }
-        </style>
-    </head>
-    <body>
-        ${contentHtml}
-    </body>
-    </html>
-    `;
+        const opt = {
+            margin:       [10, 10, 10, 10],
+            filename:     `Excavator_Report_${new Date().toISOString().slice(0,10)}.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
 
-    printWindow.document.write(fullDocument);
-    printWindow.document.close();
-    printWindow.focus();
-    setTimeout(() => {
-        printWindow.print();
-        printWindow.close();
-    }, 500);
-}
-    
-    </script>
+        html2pdf().set(opt).from(element).save();
+    }
 
-    <script>
-    // 1. Splash Screen Display Logic
     window.addEventListener('load', function() {
-        // Wait for 1.5 seconds before starting the fade-out
         setTimeout(function() {
             const splash = document.getElementById('splash-screen');
             if (splash) {
-                // Apply fade effect
                 splash.style.opacity = '0';
-                
-                // Completely remove from DOM after transition
                 setTimeout(() => {
                     splash.style.display = 'none';
                 }, 500); 
@@ -1050,16 +894,11 @@ function printPDFReport(sections) {
         }, 1500); 
     });
 
-    // 2. Progressive Web App (PWA) Service Worker Registration
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
-                .then(reg => {
-                    console.log('PWA: Service Worker Registered Successfully');
-                })
-                .catch(err => {
-                    console.error('PWA: Service Worker Registration Failed', err);
-                });
+                .then(reg => console.log('PWA Registered'))
+                .catch(err => console.error('PWA Failed', err));
         });
     }
 </script>
