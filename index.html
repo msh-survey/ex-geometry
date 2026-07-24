@@ -248,7 +248,7 @@
             <div class="res-line"><span>Forward (Y):</span> <b id="out-a2F">N/A</b></div>
             <div class="res-line"><span>Up (Z):</span> <b id="out-a2U">N/A</b></div>
             
-            <button class="export-btn" onclick="exportReport1()">Download Geometry Report</button>
+            <button class="export-btn" onclick="openPrintModal('geometry')">Download PDF Report</button>
         </div>
     </div>
 
@@ -281,7 +281,7 @@
             <div class="res-line"><span>(T1) Bucket Length:</span> <b id="out-t1">N/A</b></div>
             <div class="res-line"><span>(T5) Holes Separation:</span> <b id="out-ts">N/A</b></div>
             <div class="res-line"><span>(T6) Tooth Angle:</span> <b id="out-t6" style="color:var(--pds-orange)">N/A</b></div>
-            <button class="report-btn" onclick="exportReport2()">Download Crane Configuration Report</button>
+            <button class="report-btn" onclick="openPrintModal('calibration')">Download PDF Report</button>
         </div>
     </div>
    
@@ -416,6 +416,16 @@
     </div>
 </div>
 
+<div id="printModal" class="modal">
+    <div class="modal-content" style="text-align: center;">
+        <h3 style="margin-top:0; font-size:16px; color:#1e293b; border-bottom:2px solid #eee; padding-bottom:10px;">Select Print Range</h3>
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 20px;">Would you like to print the current tab only or both tabs together?</p>
+        <button class="print-choice-btn" style="background: var(--accent-blue); color: white; width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:none; font-weight:bold; cursor:pointer;" onclick="confirmPrint('current')">Current Tab Only</button>
+        <button class="print-choice-btn" style="background: var(--primary-bg); color: white; width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:none; font-weight:bold; cursor:pointer;" onclick="confirmPrint('both')">Both Tabs</button>
+        <button class="print-choice-btn" style="background: #cbd5e1; color: #334155; width:100%; padding:12px; border-radius:8px; border:none; font-weight:bold; cursor:pointer;" onclick="closePrintModal()">Cancel</button>
+    </div>
+</div>
+    
 <script>
     const getV = (id) => { const el = document.getElementById(id); return el && el.value !== "" ? parseFloat(el.value) : null; };
     const format = (val, unit = "") => (val === null || isNaN(val)) ? "N/A" : val.toFixed(3) + unit;
@@ -800,95 +810,226 @@ function closeConfirm(isConfirmed) {
     </html>`;
 }
 
-    function exportReport1() {
-    // Get Surveyor and Machine info
-    const sName = document.getElementById('surveyor_name').value || "N/A";
-    const mModel = document.getElementById('machine_model').value || "N/A";
-    const mNo = document.getElementById('machine_no').value || "N/A";
+ let currentCallingTab = 'geometry';
 
-    const rows = [
-        {label: "SURVEY INFORMATION", isHeader: true},
-        {label: "Surveyor Name", value: sName},
-        {label: "Machine Model", value: mModel},
-        {label: "Machine No.", value: mNo},
-        {
-    label: "Date", 
-    value: new Date().toLocaleDateString('en-GB', { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: '2-digit' 
-    })
-},
-        
-        {label: "HEADING CALC.", isHeader: true},
-        {label: "Machine Heading", value: document.getElementById('out-mH').innerText},
-        {label: "Antenna Heading", value: document.getElementById('out-antH').innerText},
-        {label: "Heading Correction", value: document.getElementById('out-hC').innerText},
-        {label: "Antenna H-Distance", value: document.getElementById('out-antDist').innerText},
-        
-        {label: "Antenna 1 Offsets", isHeader: true},
-        {label: "Starboard (X)", value: document.getElementById('out-a1S').innerText},
-        {label: "Forward (Y)", value: document.getElementById('out-a1F').innerText},
-        {label: "Up (Z)", value: document.getElementById('out-a1U').innerText},
-        
-        {label: "Antenna 2 Offsets", isHeader: true},
-        {label: "Starboard (X)", value: document.getElementById('out-a2S').innerText},
-        {label: "Forward (Y)", value: document.getElementById('out-a2F').innerText},
-        {label: "Up (Z)", value: document.getElementById('out-a2U').innerText}
-    ];
-
-    const blob = new Blob([generateHTMLReport("Excavator Geometry Report", rows)], {type: 'text/html'});
-    const link = document.createElement('a'); 
-    link.href = URL.createObjectURL(blob); 
-    link.download = `Geometry_Report_${mNo}.html`; 
-    link.click();
+function openPrintModal(callingTab) {
+    currentCallingTab = callingTab;
+    document.getElementById('printModal').style.display = 'block';
 }
 
-function exportReport2() {
-    // Get Surveyor and Machine info
-    const sName = document.getElementById('surveyor_name').value || "N/A";
-    const mModel = document.getElementById('machine_model').value || "N/A";
-    const mNo = document.getElementById('machine_no').value || "N/A";
-
-    const rows = [
-        {label: "SURVEY INFORMATION", isHeader: true},
-        {label: "Surveyor Name", value: sName},
-        {label: "Machine Model", value: mModel},
-        {label: "Machine No.", value: mNo},
-        {
-    label: "Date", 
-    value: new Date().toLocaleDateString('en-GB', { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: '2-digit' 
-    })
-},
-
-        {label: "BOOM & STICK", isHeader: true},
-        {label: "Boom Length", value: document.getElementById('out-boomL_cal').innerText},
-        {label: "Stick Length", value: document.getElementById('out-stickL_cal').innerText},
-        {label: "Boom Stick V (ΔZ)", value: document.getElementById('out-bsv').innerText},
-        
-        {label: "SUPPORT LEVER ATTACHMENT", isHeader: true},
-        {label: "(S2) Hor. Offset", value: document.getElementById('out-s2').innerText},
-        {label: "(S3) Z Offset", value: document.getElementById('out-s3').innerText},
-        {label: "(S4) Support Lever Length", value: document.getElementById('out-s4').innerText},
-        {label: "(S5) Drive Lever Length", value: document.getElementById('out-s5').innerText},
-        
-        {label: "BUCKET", isHeader: true},
-        {label: "(T1) Bucket Length", value: document.getElementById('out-t1').innerText},
-        {label: "(T5) Holes Separation", value: document.getElementById('out-ts').innerText},
-        {label: "(T6) Tooth Angle", value: document.getElementById('out-t6').innerText}
-    ];
-
-    const blob = new Blob([generateHTMLReport("Crane Configuration Report", rows)], {type: 'text/html'});
-    const link = document.createElement('a'); 
-    link.href = URL.createObjectURL(blob); 
-    link.download = `Crane_Config_${mNo}.html`; 
-    link.click();
+function closePrintModal() {
+    document.getElementById('printModal').style.display = 'none';
 }
+
+function confirmPrint(option) {
+    closePrintModal();
+    if (option === 'current') {
+        if (currentCallingTab === 'geometry') {
+            printPDFReport([getGeometryRows()]);
+        } else {
+            printPDFReport([getCalibrationRows()]);
+        }
+    } else {
+        printPDFReport([getGeometryRows(), getCalibrationRows()]);
+    }
+}
+
+function getSurveyInfoRows() {
+    const sName = document.getElementById('surveyor_name') ? document.getElementById('surveyor_name').value : "N/A";
+    const mModel = document.getElementById('machine_model') ? document.getElementById('machine_model').value : "N/A";
+    const mNo = document.getElementById('machine_no') ? document.getElementById('machine_no').value : "N/A";
+    return [
+        {label: "SURVEY INFORMATION", isHeader: true},
+        {label: "Surveyor Name", value: sName || "N/A"},
+        {label: "Machine Model", value: mModel || "N/A"},
+        {label: "Machine No.", value: mNo || "N/A"},
+        {
+            label: "Date", 
+            value: new Date().toLocaleDateString('en-GB', { 
+                weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' 
+            })
+        }
+    ];
+}
+
+function getGeometryRows() {
+    return {
+        title: "EXCAVATOR GEOMETRY REPORT",
+        rows: [
+            ...getSurveyInfoRows(),
+            {label: "HEADING CALCULATION", isHeader: true},
+            {label: "Machine Heading", value: document.getElementById('out-mH').innerText},
+            {label: "Antenna Heading", value: document.getElementById('out-antH').innerText},
+            {label: "Heading Correction", value: document.getElementById('out-hC').innerText},
+            {label: "Antenna H-Distance", value: document.getElementById('out-antDist').innerText},
+            
+            {label: "ANTENNA 1 OFFSETS", isHeader: true},
+            {label: "Starboard (X)", value: document.getElementById('out-a1S').innerText},
+            {label: "Forward (Y)", value: document.getElementById('out-a1F').innerText},
+            {label: "Up (Z)", value: document.getElementById('out-a1U').innerText},
+            
+            {label: "ANTENNA 2 OFFSETS", isHeader: true},
+            {label: "Starboard (X)", value: document.getElementById('out-a2S').innerText},
+            {label: "Forward (Y)", value: document.getElementById('out-a2F').innerText},
+            {label: "Up (Z)", value: document.getElementById('out-a2U').innerText}
+        ]
+    };
+}
+
+function getCalibrationRows() {
+    return {
+        title: "CRANE CONFIGURATION REPORT",
+        rows: [
+            ...getSurveyInfoRows(),
+            {label: "BOOM & STICK", isHeader: true},
+            {label: "Boom Length", value: document.getElementById('out-boomL_cal').innerText},
+            {label: "Stick Length", value: document.getElementById('out-stickL_cal').innerText},
+            {label: "Boom Stick V (ΔZ)", value: document.getElementById('out-bsv').innerText},
+            
+            {label: "SUPPORT LEVER ATTACHMENT", isHeader: true},
+            {label: "(S2) Hor. Offset", value: document.getElementById('out-s2').innerText},
+            {label: "(S3) Z Offset", value: document.getElementById('out-s3').innerText},
+            {label: "(S4) Support Lever Length", value: document.getElementById('out-s4').innerText},
+            {label: "(S5) Drive Lever Length", value: document.getElementById('out-s5').innerText},
+            
+            {label: "BUCKET", isHeader: true},
+            {label: "(T1) Bucket Length", value: document.getElementById('out-t1').innerText},
+            {label: "(T5) Holes Separation", value: document.getElementById('out-ts').innerText},
+            {label: "(T6) Tooth Angle", value: document.getElementById('out-t6').innerText}
+        ]
+    };
+}
+
+function printPDFReport(sections) {
+    let printWindow = window.open('', '_blank');
+    let contentHtml = '';
+
+    sections.forEach((sec, idx) => {
+        let rowsHtml = '';
+        sec.rows.forEach(row => {
+            if(row.isHeader) {
+                rowsHtml += `
+                    <tr>
+                        <td colspan="2" class="section-hdr">${row.label}</td>
+                    </tr>`;
+            } else {
+                rowsHtml += `
+                    <tr>
+                        <td class="lbl-col">${row.label}</td>
+                        <td class="val-col">${row.value}</td>
+                    </tr>`;
+            }
+        });
+
+        contentHtml += `
+            <div class="page-container ${idx > 0 ? 'page-break' : ''}">
+                <div class="hdr-bar">
+                    <h1>EXCAVATOR GEOMETRY SYSTEM</h1>
+                    <h2>${sec.title}</h2>
+                </div>
+                <table class="report-tbl">
+                    ${rowsHtml}
+                </table>
+                <div class="report-ftr">
+                    Generated by Excavator Geometry Assistant • Created by Mohamed Shehata
+                </div>
+            </div>
+        `;
+    });
+
+    let fullDocument = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Excavator Geometry Report</title>
+        <style>
+            @page {
+                size: A4 portrait;
+                margin: 12mm;
+            }
+            * { box-sizing: border-box; }
+            body {
+                font-family: 'Segoe UI', Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background: #fff;
+                color: #0f172a;
+            }
+            .page-container {
+                width: 100%;
+                min-height: 270mm;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .hdr-bar {
+                background: #0f172a;
+                color: white;
+                padding: 18px 20px;
+                border-radius: 8px;
+                border-bottom: 4px solid #38bdf8;
+                margin-bottom: 15px;
+            }
+            .hdr-bar h1 { margin: 0; font-size: 18px; letter-spacing: 0.5px; }
+            .hdr-bar h2 { margin: 5px 0 0; font-size: 13px; color: #38bdf8; text-transform: uppercase; font-weight: 600; }
+            
+            .report-tbl {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: auto;
+            }
+            .section-hdr {
+                background: #f1f5f9;
+                color: #0f172a;
+                font-weight: 800;
+                font-size: 11px;
+                padding: 8px 12px;
+                border-left: 4px solid #38bdf8;
+                text-transform: uppercase;
+            }
+            .lbl-col {
+                padding: 8px 12px;
+                color: #475569;
+                font-size: 12px;
+                border-bottom: 1px solid #e2e8f0;
+                width: 50%;
+            }
+            .val-col {
+                padding: 8px 12px;
+                color: #0f172a;
+                font-size: 12px;
+                font-weight: bold;
+                text-align: right;
+                border-bottom: 1px solid #e2e8f0;
+                width: 50%;
+            }
+            .report-ftr {
+                border-top: 1px solid #e2e8f0;
+                padding-top: 10px;
+                font-size: 10px;
+                color: #94a3b8;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        ${contentHtml}
+    </body>
+    </html>
+    `;
+
+    printWindow.document.write(fullDocument);
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+    }, 500);
+}
+    
     </script>
 
     <script>
