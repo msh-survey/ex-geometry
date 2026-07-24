@@ -560,10 +560,10 @@ window.closeImportAlert = function() {
         let a1 = {F: null, S: null, U: null}, a2 = {F: null, S: null, U: null};
 
         if (d.X1 !== null && d.Y1 !== null && d.X2 !== null && d.Y2 !== null) {
-            antDist = Math.sqrt(Math.pow(d.X2 - d.X1, 2) + Math.pow(d.Y2 - d.Y1, 2));
-            const aH_rad = Math.atan2(d.X2 - d.X1, d.Y2 - d.Y1);
-            antH = ((aH_rad * 180) / Math.PI + 360) % 360;
-        }
+    antDist = Math.sqrt(Math.pow(d.X2 - d.X1, 2) + Math.pow(d.Y2 - d.Y1, 2));
+    const aH_rad = Math.atan2(d.X1 - d.X2, d.Y1 - d.Y2);
+    antH = ((aH_rad * 180) / Math.PI + 360) % 360;
+}
 
         if (d.Xp !== null && d.Xs !== null && d.Xb !== null && d.Yb !== null) {
             const Xc = (d.Xp + d.Xs) / 2, Yc = (d.Yp + d.Ys) / 2, Zc = (d.Zp + d.Zs) / 2;
@@ -582,11 +582,11 @@ window.closeImportAlert = function() {
             a1 = getOffsets(d.X1, d.Y1, d.Z1);
             a2 = getOffsets(d.X2, d.Y2, d.Z2);
             
-            if (antH !== null) {
-                hC = (mH - antH) + 180;
-                if (hC > 180) hC -= 360; 
-                if (hC < -180) hC += 360;
-            }
+           if (antH !== null) {
+    hC = mH - antH;
+    if (hC > 180) hC -= 360; 
+    if (hC < -180) hC += 360;
+}
         }
 
         const res = {
