@@ -751,7 +751,8 @@
 
         let currentExportSource = '';
 
-       function generateHTMLReport(title, dataRows) {
+      
+                function generateHTMLReport(title, dataRows) {
             let rowsHtml = '';
             
             dataRows.forEach(row => {
@@ -759,7 +760,7 @@
                     rowsHtml += `
                         <tr>
                             <td colspan="2" style="padding: 25px 0 10px 0;">
-                                <div style="background: #f1f5f9; padding: 12px 18px; border-left: 6px solid #38bdf8; color: #0f172a; font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; text-align: center;">
+                                <div style="background: #f1f5f9; padding: 12px 18px; border-left: 6px solid #38bdf8; color: #0f172a; font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; text-align: left;">
                                     ${row.label}
                                 </div>
                             </td>
@@ -767,7 +768,7 @@
                 } else {
                     rowsHtml += `
                         <tr style="border-bottom: 1px solid #e2e8f0;">
-                            <td style="padding: 14px 18px; color: #475569; font-size: 18px; width: 50%; font-weight: 600; text-align: center;">${row.label}</td>
+                            <td style="padding: 14px 18px; color: #475569; font-size: 16px; width: 50%; font-weight: 600; text-align: left;">${row.label}</td>
                             <td style="padding: 14px 18px; color: #0f172a; font-size: 20px; font-weight: 800; width: 50%; text-align: center;">${row.value}</td>
                         </tr>`;
                 }
@@ -784,7 +785,7 @@
                     @page { size: A4; margin: 15mm; }
                     body { font-family: 'Inter', sans-serif; line-height: 1.5; color: #334155; margin: 0; padding: 15px; }
                     .report-container { width: 100%; max-width: 100%; margin: 0 auto; border: 1px solid #cbd5e1; padding: 30px; box-sizing: border-box; border-radius: 8px; }
-                    .main-title { color: #0f172a; font-size: 28px; font-weight: 800; margin: 0 0 25px 0; padding-bottom: 15px; border-bottom: 4px solid #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; }
+                    .main-title { color: #0f172a; font-size: 28px; font-weight: 800; margin: 0 0 25px 0; padding-bottom: 15px; border-bottom: 4px solid #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; }
                     .data-table { width: 100%; border-collapse: collapse; }
                     @media print { body { padding: 0; } .report-container { border: none; padding: 0; } }
                 </style>
@@ -881,7 +882,11 @@
 
         function exportReport1() {
             const mNo = document.getElementById('machine_no').value || "N/A";
-            const rows = [...getSurveyInfoRows(), ...getGeometryDataRows()];
+            const rows = [
+                ...getSurveyInfoRows(), 
+                {label: "GEOMETRY CONFIGURATION", isHeader: true},
+                ...getGeometryDataRows()
+            ];
 
             const blob = new Blob([generateHTMLReport("Excavator Geometry Report", rows)], {type: 'text/html'});
             const link = document.createElement('a'); 
@@ -892,7 +897,11 @@
 
         function exportReport2() {
             const mNo = document.getElementById('machine_no').value || "N/A";
-            const rows = [...getSurveyInfoRows(), ...getCraneDataRows()];
+            const rows = [
+                ...getSurveyInfoRows(), 
+                {label: "CRANE CONFIGURATION", isHeader: true},
+                ...getCraneDataRows()
+            ];
 
             const blob = new Blob([generateHTMLReport("Crane Configuration Report", rows)], {type: 'text/html'});
             const link = document.createElement('a'); 
@@ -905,7 +914,9 @@
             const mNo = document.getElementById('machine_no').value || "N/A";
             const rows = [
                 ...getSurveyInfoRows(), 
+                {label: "GEOMETRY CONFIGURATION", isHeader: true},
                 ...getGeometryDataRows(), 
+                {label: "CRANE CONFIGURATION", isHeader: true},
                 ...getCraneDataRows()
             ];
 
