@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <link rel="manifest" href="manifest.json">
-
-<link rel="apple-touch-icon" href="icon-192.png">
-
-<meta name="theme-color" content="#0f172a">
-
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Excavator Geometry</title>
     <style>
@@ -102,9 +99,9 @@
         .input-block { margin-bottom: 20px; }
         .block-label { font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 8px; display: block; }
 
-       .input-row { display: flex; gap: 8px; }
-       .input-col { flex: 1.6; }
-       .input-col:nth-child(3) { flex: 1; }
+        .input-row { display: flex; gap: 8px; }
+        .input-col { flex: 1.6; }
+        .input-col:nth-child(3) { flex: 1; }
         .input-col label { font-size: 10px; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px; text-transform: uppercase; }
         .input-col input { 
             width: 100%; padding: 10px; border: 1.5px solid #e2e8f0; 
@@ -137,149 +134,7 @@
         .history-item { padding: 10px; border-bottom: 1px solid #eee; font-size: 12px; line-height: 1.4; }
 
         .footer { padding: 25px; font-size: 11px; color: #64748b; text-align: center; background: #fafafa; border-top: 1px solid #eee; }
-        
         .id-badge { background: #e2e8f0; color: #1e293b; padding: 2px 5px; border-radius: 4px; font-size: 9px; margin-right: 5px; vertical-align: middle; }
-        <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <link rel="manifest" href="manifest.json">
-
-<link rel="apple-touch-icon" href="icon-192.png">
-
-<meta name="theme-color" content="#0f172a">
-
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Excavator Geometry</title>
-    <style>
-        :root {
-            --primary-bg: #0f172a;
-            --accent-blue: #38bdf8;
-            --success-green: #059669;
-            --text-gray: #94a3b8;
-            --pds-orange: #f59e0b;
-            --error-red: #ef4444;
-            --sub-text-gray: #64748b;
-        }
-
-        body { 
-            background-color: #f1f5f9; 
-            min-height: 100vh; 
-            display: flex; 
-            justify-content: center; 
-            align-items: flex-start;
-            padding: 20px 10px; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            box-sizing: border-box;
-        }
-
-        .card { 
-            max-width: 550px; 
-            width: 100%; 
-            background: #fff; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 1px solid #e2e8f0;
-        }
-
-        .header { background: var(--primary-bg); color: white; padding: 25px 20px; text-align: center; }
-        .header h1 { margin: 0; font-size: 26px; letter-spacing: 0.5px; }
-        .header p { margin: 5px 0 0; font-size: 14px; color: var(--sub-text-gray); font-weight: 500; }
-        .header a { color: var(--accent-blue); text-decoration: none; font-weight: bold; }
-        .created-by { margin-top: 10px; font-size: 14px; color: #94a3b8; }
-        .support-text { display: block; margin-top: 5px; color: #64748b; font-style: italic; font-size: 12px; }
-
-        .tabs { display: flex; background: #1e293b; border-bottom: 2px solid #334155; }
-        .tab-btn { 
-            flex: 1; padding: 15px 5px; text-align: center; color: var(--text-gray); 
-            background: none; border: none; font-weight: bold; cursor: pointer; 
-            transition: 0.3s; font-size: 11px; text-transform: uppercase;
-        }
-        .tab-btn.active { color: #fff; border-bottom: 3px solid var(--accent-blue); background: var(--primary-bg); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Help Styles */
-        .help-section { padding: 15px; line-height: 1.6; color: #334155; }
-        .help-item { margin-bottom: 15px; border-bottom: 1px solid #edf2f7; padding-bottom: 10px; }
-        .help-title { font-weight: bold; color: var(--primary-bg); display: block; margin-bottom: 5px; font-size: 14px; }
-        .help-text { font-size: 13px; color: #64748b; }
-
-        /* Styles for Diagrams */
-        .diagram-container { width: 100%; background: #fff; padding: 10px 0; text-align: center; }
-        .diagram-item {
-            margin-bottom: 25px;
-            padding: 10px;
-            background: #f8fafc;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-        }
-        .diagram-label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--primary-bg);
-            border-left: 4px solid var(--accent-blue);
-            padding-left: 8px;
-            text-align: left;
-        }
-        .diagram-container img { 
-            max-width: 95%; 
-            height: auto; 
-            border-radius: 8px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
-        }
-        
-        .main-container { padding: 20px; }
-        .group { padding: 15px 20px; border-bottom: 1px solid #f1f5f9; }
-        .group-title { font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; margin-bottom: 10px; display: block; }
-        
-        .input-block { margin-bottom: 20px; }
-        .block-label { font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 8px; display: block; }
-
-       .input-row { display: flex; gap: 8px; }
-       .input-col { flex: 1.6; }
-       .input-col:nth-child(3) { flex: 1; }
-        .input-col label { font-size: 10px; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px; text-transform: uppercase; }
-        .input-col input { 
-            width: 100%; padding: 10px; border: 1.5px solid #e2e8f0; 
-            border-radius: 8px; font-size: 14px; box-sizing: border-box; outline: none; text-align: center;
-        }
-
-        .calc-btn { 
-            width: calc(100% - 40px); margin: 10px 20px 20px 20px; padding: 16px; 
-            background: var(--success-green); color: white; border: none; 
-            border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; 
-        }
-
-        .results-area { background: var(--primary-bg); color: #f8fafc; padding: 25px 20px; display: none; }
-        .res-line { display: flex; justify-content: space-between; margin: 10px 0; font-size: 14px; border-bottom: 1px solid #1e293b; padding-bottom: 5px; }
-        .res-line b { color: #fff; }
-        .offset-title { color: #10b981; font-size: 10px; font-weight: bold; text-transform: uppercase; margin: 20px 0 10px 0; padding-bottom: 5px; border-bottom: 1px dashed #334155; }
-        .res-section-title { font-size: 11px; font-weight: bold; margin-top: 15px; border-bottom: 1px solid #334155; padding-bottom: 5px;}
-        .ref-tag { font-size: 9px; color: #94a3b8; text-transform: none; margin-left: 5px; font-weight: normal; }
-
-        .export-btn { width: 100%; padding: 14px; background: transparent; color: var(--accent-blue); border: 2px solid var(--accent-blue); border-radius: 10px; margin-top: 20px; cursor: pointer; font-weight: 800; }
-        .report-btn { background: #64748b; color: white; border: none; padding: 14px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: bold; width: 100%; margin-top: 20px; }
-        
-        .action-btns-container { display: flex; gap: 8px; margin: 0 20px 20px; }
-        .clear-btn { flex: 1.2; background: #fee2e2; color: #ef4444; border: 1px solid #ef4444; padding: 10px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 11px; text-transform: uppercase; }
-        .history-bottom-btn { flex: 1; background: #1e293b; color: var(--accent-blue); border: 1px solid var(--accent-blue); padding: 10px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 11px; text-transform: uppercase; }
-        .reset-btn { flex: 1.2; background: #334155; color: white; border: none; padding: 10px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 11px; text-transform: uppercase; }
-
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); }
-        .modal-content { background: white; margin: 15% auto; padding: 20px; width: 85%; max-width: 400px; border-radius: 15px; max-height: 70vh; overflow-y: auto; }
-        .history-item { padding: 10px; border-bottom: 1px solid #eee; font-size: 12px; line-height: 1.4; }
-
-        .footer { padding: 25px; font-size: 11px; color: #64748b; text-align: center; background: #fafafa; border-top: 1px solid #eee; }
-        
-      .id-badge { background: #e2e8f0; color: #1e293b; padding: 2px 5px; border-radius: 4px; font-size: 9px; margin-right: 5px; vertical-align: middle; }
 
         /* Report Modal Options Style */
         .report-opt-btn {
@@ -315,13 +170,6 @@
         <div style="margin-top: 30px; width: 35px; height: 35px; border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #38bdf8; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
     </div>
 
-   <style>
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-</style>
-
 <div class="card">
     <div class="header">
         <h1>Excavator Geometry</h1>
@@ -333,17 +181,17 @@
     </div>
 
     <div class="tabs">
-    <button class="tab-btn active" id="btn-measurements" onclick="openTab(event, 'tab-measurements')">Geometry</button>
-    <button class="tab-btn" id="btn-calibration" onclick="openTab(event, 'tab-calibration')">Crane Config</button>
-    <button class="tab-btn" id="btn-diagram" onclick="openTab(event, 'tab-diagram')">Diagram</button>
-    <button class="tab-btn" id="btn-help" onclick="openTab(event, 'tab-help')">Help</button>
-</div>
+        <button class="tab-btn active" id="btn-measurements" onclick="openTab(event, 'tab-measurements')">Geometry</button>
+        <button class="tab-btn" id="btn-calibration" onclick="openTab(event, 'tab-calibration')">Crane Config</button>
+        <button class="tab-btn" id="btn-diagram" onclick="openTab(event, 'tab-diagram')">Diagram</button>
+        <button class="tab-btn" id="btn-help" onclick="openTab(event, 'tab-help')">Help</button>
+    </div>
 
     <div class="import-section" style="margin-top: 10px; padding: 0 10px;">
         <button onclick="document.getElementById('csvFileInput').click()" 
                 style="width:100%; padding:12px; background:#ef4444; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:14px; display: flex; align-items: center; justify-content: center; gap: 8px;">
             <span>📂</span> Import Survey CSV (ID, X, Y, Z)
-            </button>
+        </button>
     </div>
 
     <div id="tab-measurements" class="tab-content active">
@@ -369,23 +217,23 @@
             </div>
         </div>
 
-       <div class="group">
-    <span class="group-title"><span class="id-badge">BS</span> BOOM PIN STARBOARD</span>
-    <div class="input-row">
-        <div class="input-col"><label>Xs</label><input type="number" step="0.001" id="Xs" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
-        <div class="input-col"><label>Ys</label><input type="number" step="0.001" id="Ys" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
-        <div class="input-col"><label>Zs</label><input type="number" step="0.001" id="Zs" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
-    </div>
-</div>
+        <div class="group">
+            <span class="group-title"><span class="id-badge">BS</span> BOOM PIN STARBOARD</span>
+            <div class="input-row">
+                <div class="input-col"><label>Xs</label><input type="number" step="0.001" id="Xs" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+                <div class="input-col"><label>Ys</label><input type="number" step="0.001" id="Ys" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+                <div class="input-col"><label>Zs</label><input type="number" step="0.001" id="Zs" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+            </div>
+        </div>
 
         <div class="group">
-    <span class="group-title"><span class="id-badge">BT</span> BOOM PIN PORTSIDE</span>
-    <div class="input-row">
-        <div class="input-col"><label>Xp</label><input type="number" step="0.001" id="Xp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
-        <div class="input-col"><label>Yp</label><input type="number" step="0.001" id="Yp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
-        <div class="input-col"><label>Zp</label><input type="number" step="0.001" id="Zp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
-    </div>
-</div>
+            <span class="group-title"><span class="id-badge">BT</span> BOOM PIN PORTSIDE</span>
+            <div class="input-row">
+                <div class="input-col"><label>Xp</label><input type="number" step="0.001" id="Xp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+                <div class="input-col"><label>Yp</label><input type="number" step="0.001" id="Yp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+                <div class="input-col"><label>Zp</label><input type="number" step="0.001" id="Zp" class="saveable" oninput="autoSave(); updateBoomPinCenter()"></div>
+            </div>
+        </div>
 
         <div class="group" style="background: #f0fff4;">
             <span class="group-title"><span class="id-badge">BU</span> BUCKET CENTER</span>
@@ -476,79 +324,79 @@
     </div>
 
     <div id="tab-help" class="tab-content">
-    <div class="main-container help-section">
-        
-        <div style="background: #e0f2fe; padding: 15px; border-radius: 10px; border-left: 5px solid #38bdf8; margin-bottom: 20px;">
-            <p style="margin: 0; font-size: 14px; color: #0369a1; line-height: 1.5;">
-                <strong>Note:</strong> Please refer to the <strong>Diagram</strong> tab to visualize the points to be surveyed and understand what each element represents in both inputs and calculation results.
-            </p>
-        </div>
+        <div class="main-container help-section">
+            <div style="background: #e0f2fe; padding: 15px; border-radius: 10px; border-left: 5px solid #38bdf8; margin-bottom: 20px;">
+                <p style="margin: 0; font-size: 14px; color: #0369a1; line-height: 1.5;">
+                    <strong>Note:</strong> Please refer to the <strong>Diagram</strong> tab to visualize the points to be surveyed and understand what each element represents in both inputs and calculation results.
+                </p>
+            </div>
 
-        <div style="background: #fff9db; padding: 15px; border-radius: 10px; border-left: 5px solid #f59e0b; margin-bottom: 20px;">
-            <p style="margin: 0; font-size: 14px; color: #856404; line-height: 1.5;">
-                <strong>Important:</strong> This application is a support tool that provides results based on the data provided. Therefore, the most critical factor is <strong>measurements accuracy</strong> to obtain precise results.
-            </p>
-        </div>
+            <div style="background: #fff9db; padding: 15px; border-radius: 10px; border-left: 5px solid #f59e0b; margin-bottom: 20px;">
+                <p style="margin: 0; font-size: 14px; color: #856404; line-height: 1.5;">
+                    <strong>Important:</strong> This application is a support tool that provides results based on the data provided. Therefore, the most critical factor is <strong>measurements accuracy</strong> to obtain precise results.
+                </p>
+            </div>
 
-       <div class="help-item">
-            <span class="help-title">* Best Practices for Accuracy</span>
-            <ul class="help-text" style="padding-left: 20px;">
-                <li>The excavator should be in a level position (Pitch and Roll as close to 0 as possible).</li>
-                <li>It is preferred to extend the excavator arm (Boom and Stick) to the maximum reach to ensure higher accuracy in <strong>Heading</strong> calculations.</li>
-                <li>For Antenna 1 & 2 Measurement: When the prism is above the antenna center, add the vertical antenna dimension from top to bottom (D<sub>A</sub>) to the prism height (H<sub>R</sub>) to get the bottom of the antenna height (H<sub>A</sub>).</li>
-                <li>The elevation of the <strong>Boom Pin Starboard (BS)</strong> must be equal to the elevation of the <strong>Boom Pin Portside (BT)</strong>. If there is any big difference, the observation must be reviewed.</li>
-                <li><strong>T1 Point:</strong> (Bucket Length)The perpendicular line connecting the <strong>Bucket Pin (BP)</strong> to the <strong>Bucket Teeth (T1 Point)</strong>.</li>
-                <li>You can use <strong>Global Coordinates</strong> or assume <strong>Local Coordinates</strong>; however, using Global coordinates is preferred to obtain the <strong>Actual Machine Heading</strong>.</li>
-                <li>In both cases (Global or Local), the <strong>Heading Correction</strong> value will remain unaffected.</li>
-            </ul>
-        </div>
+            <div class="help-item">
+                <span class="help-title">* Best Practices for Accuracy</span>
+                <ul class="help-text" style="padding-left: 20px;">
+                    <li>The excavator should be in a level position (Pitch and Roll as close to 0 as possible).</li>
+                    <li>It is preferred to extend the excavator arm (Boom and Stick) to the maximum reach to ensure higher accuracy in <strong>Heading</strong> calculations.</li>
+                    <li>For Antenna 1 & 2 Measurement: When the prism is above the antenna center, add the vertical antenna dimension from top to bottom (D<sub>A</sub>) to the prism height (H<sub>R</sub>) to get the bottom of the antenna height (H<sub>A</sub>).</li>
+                    <li>The elevation of the <strong>Boom Pin Starboard (BS)</strong> must be equal to the elevation of the <strong>Boom Pin Portside (BT)</strong>. If there is any big difference, the observation must be reviewed.</li>
+                    <li><strong>T1 Point:</strong> (Bucket Length)The perpendicular line connecting the <strong>Bucket Pin (BP)</strong> to the <strong>Bucket Teeth (T1 Point)</strong>.</li>
+                    <li>You can use <strong>Global Coordinates</strong> or assume <strong>Local Coordinates</strong>; however, using Global coordinates is preferred to obtain the <strong>Actual Machine Heading</strong>.</li>
+                    <li>In both cases (Global or Local), the <strong>Heading Correction</strong> value will remain unaffected.</li>
+                </ul>
+            </div>
 
-        <div class="help-item">
-            <span class="help-title">* Import Survey CSV</span>
-            <ul class="help-text" style="padding-left: 20px;">
-                <li>You can upload points via a CSV file to avoid manual typing errors and save time.</li>
-                <li>The CSV file must contain four columns in this order: <strong>(ID, Easting, Northing, Elevation)</strong>.</li>
-                <li>Points do not need to be in any specific order; the app automatically maps them by ID.</li>
-                <li>Required IDs for auto-mapping: <strong>A1, A2, BS, BT, BU, ST, BP, S3, S4, S5, T1</strong>.</li>
-            </ul>
-        </div>
+            <div class="help-item">
+                <span class="help-title">* Import Survey CSV</span>
+                <ul class="help-text" style="padding-left: 20px;">
+                    <li>You can upload points via a CSV file to avoid manual typing errors and save time.</li>
+                    <li>The CSV file must contain four columns in this order: <strong>(ID, Easting, Northing, Elevation)</strong>.</li>
+                    <li>Points do not need to be in any specific order; the app automatically maps them by ID.</li>
+                    <li>Required IDs for auto-mapping: <strong>A1, A2, BS, BT, BU, ST, BP, S3, S4, S5, T1</strong>.</li>
+                </ul>
+            </div>
 
-        <div class="help-item">
-            <span class="help-title">* Auto-Save & History</span>
-            <p class="help-text">The app saves your last inputs automatically. Use the "History" button to review the last 10 calculations.</p>
-        </div>
-        
-        <div class="help-item">
-            <span class="help-title">* Support & Suggestions</span>
-            <p class="help-text">For any inquiries or suggestions, you can click on my name in the header to be redirected to my contact page.</p>
+            <div class="help-item">
+                <span class="help-title">* Auto-Save & History</span>
+                <p class="help-text">The app saves your last inputs automatically. Use the "History" button to review the last 10 calculations.</p>
+            </div>
+            
+            <div class="help-item">
+                <span class="help-title">* Support & Suggestions</span>
+                <p class="help-text">For any inquiries or suggestions, you can click on my name in the header to be redirected to my contact page.</p>
+            </div>
         </div>
     </div>
-</div>
+
     <div class="action-btns-container">
         <button class="clear-btn" onclick="clearPageOnly()">clear page</button>
         <button class="history-bottom-btn" onclick="showHistoryByActiveTab()">History</button>
         <button class="reset-btn" onclick="resetHistoryOnly()">reset history</button>
     </div>
 
-    <!-- Survey Info Section - Fixed Layout -->
-<div class="survey-info-container" style="margin: 0 20px 20px; padding: 15px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; box-sizing: border-box;">
-    <div style="display: flex; flex-direction: column; gap: 12px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <label style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap; width: 100px;">SURVEYOR NAME:</label>
-            <input type="text" id="surveyor_name" class="saveable" placeholder="Enter Name" style="flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none;" oninput="autoSave()">
-        </div>
-        
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <label style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap; width: 100px;">MACHINE MODEL:</label>
-            <input type="text" id="machine_model" class="saveable" placeholder="Enter Model" style="flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none;" oninput="autoSave()">
-        </div>
-        
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <label style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap; width: 100px;">MACHINE NO.:</label>
-            <input type="text" id="machine_no" class="saveable" placeholder="Enter Machine No." style="flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none;" oninput="autoSave()">
+    <!-- Survey Info Section -->
+    <div class="survey-info-container" style="margin: 0 20px 20px; padding: 15px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; box-sizing: border-box;">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <label style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap; width: 100px;">SURVEYOR NAME:</label>
+                <input type="text" id="surveyor_name" class="saveable" placeholder="Enter Name" style="flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none;" oninput="autoSave()">
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <label style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap; width: 100px;">MACHINE MODEL:</label>
+                <input type="text" id="machine_model" class="saveable" placeholder="Enter Model" style="flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none;" oninput="autoSave()">
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <label style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap; width: 100px;">MACHINE NO.:</label>
+                <input type="text" id="machine_no" class="saveable" placeholder="Enter Machine No." style="flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none;" oninput="autoSave()">
+            </div>
         </div>
     </div>
-</div>
     
     <div class="footer">
         <strong>To Install as Mobile App:</strong><br>
@@ -644,27 +492,27 @@
                 document.getElementById('z_bp').value = ((zs+zp)/2).toFixed(3);
             }
 
-    window.showImportAlert = function(count) {
-    const alertBox = document.getElementById('importAlert');
-    const alertMsg = document.getElementById('importAlertMessage');
-    if(alertBox && alertMsg) {
-        alertMsg.innerText = `Imported ${count} points successfully.`;
-        alertBox.style.display = 'flex';
+            showImportAlert(matchCount);
+            autoSave();
+        };
+        reader.readAsText(file);
     }
-};
 
-window.closeImportAlert = function() {
-    const alertBox = document.getElementById('importAlert');
-    if(alertBox) {
-        alertBox.style.display = 'none';
-    }
-};
-            
-           showImportAlert(matchCount);
-        autoSave();
+    window.showImportAlert = function(count) {
+        const alertBox = document.getElementById('importAlert');
+        const alertMsg = document.getElementById('importAlertMessage');
+        if(alertBox && alertMsg) {
+            alertMsg.innerText = `Imported ${count} points successfully.`;
+            alertBox.style.display = 'flex';
+        }
     };
-    reader.readAsText(file);
-}
+
+    window.closeImportAlert = function() {
+        const alertBox = document.getElementById('importAlert');
+        if(alertBox) {
+            alertBox.style.display = 'none';
+        }
+    };
 
     function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
@@ -715,17 +563,17 @@ window.closeImportAlert = function() {
     }
 
     function updateBoomPinCenter() {
-    const xs = getV('Xs'), ys = getV('Ys'), zs = getV('Zs');
-    const xp = getV('Xp'), yp = getV('Yp'), zp = getV('Zp');
+        const xs = getV('Xs'), ys = getV('Ys'), zs = getV('Zs');
+        const xp = getV('Xp'), yp = getV('Yp'), zp = getV('Zp');
 
-    if (xs !== null && xp !== null) {
-        document.getElementById('x_bp').value = ((xs + xp) / 2).toFixed(3);
-        document.getElementById('y_bp').value = ((ys + yp) / 2).toFixed(3);
-        document.getElementById('z_bp').value = ((zs + zp) / 2).toFixed(3);
-        
-        autoSave();
+        if (xs !== null && xp !== null) {
+            document.getElementById('x_bp').value = ((xs + xp) / 2).toFixed(3);
+            document.getElementById('y_bp').value = ((ys + yp) / 2).toFixed(3);
+            document.getElementById('z_bp').value = ((zs + zp) / 2).toFixed(3);
+            
+            autoSave();
+        }
     }
-}
     
     function calcMeasurements() {
         const d = {
@@ -738,10 +586,10 @@ window.closeImportAlert = function() {
         let a1 = {F: null, S: null, U: null}, a2 = {F: null, S: null, U: null};
 
         if (d.X1 !== null && d.Y1 !== null && d.X2 !== null && d.Y2 !== null) {
-    antDist = Math.sqrt(Math.pow(d.X2 - d.X1, 2) + Math.pow(d.Y2 - d.Y1, 2));
-    const aH_rad = Math.atan2(d.X1 - d.X2, d.Y1 - d.Y2);
-    antH = ((aH_rad * 180) / Math.PI + 360) % 360;
-}
+            antDist = Math.sqrt(Math.pow(d.X2 - d.X1, 2) + Math.pow(d.Y2 - d.Y1, 2));
+            const aH_rad = Math.atan2(d.X1 - d.X2, d.Y1 - d.Y2);
+            antH = ((aH_rad * 180) / Math.PI + 360) % 360;
+        }
 
         if (d.Xp !== null && d.Xs !== null && d.Xb !== null && d.Yb !== null) {
             const Xc = (d.Xp + d.Xs) / 2, Yc = (d.Yp + d.Ys) / 2, Zc = (d.Zp + d.Zs) / 2;
@@ -760,11 +608,11 @@ window.closeImportAlert = function() {
             a1 = getOffsets(d.X1, d.Y1, d.Z1);
             a2 = getOffsets(d.X2, d.Y2, d.Z2);
             
-           if (antH !== null) {
-    hC = mH - antH;
-    if (hC > 180) hC -= 360; 
-    if (hC < -180) hC += 360;
-}
+            if (antH !== null) {
+                hC = mH - antH;
+                if (hC > 180) hC -= 360; 
+                if (hC < -180) hC += 360;
+            }
         }
 
         const res = {
@@ -867,47 +715,38 @@ window.closeImportAlert = function() {
     }
 
     function clearPageOnly() {
-    const activeTab = document.querySelector('.tab-content.active');
-    const activeTabId = activeTab.id;
+        const activeTab = document.querySelector('.tab-content.active');
+        const activeTabId = activeTab.id;
 
-    // 1. Clear input values from the screen
-    activeTab.querySelectorAll('input').forEach(input => input.value = "");
-    
-    // 2. Reset results text to N/A
-    activeTab.querySelectorAll('.results-area b').forEach(b => b.innerText = "N/A");
+        activeTab.querySelectorAll('input').forEach(input => input.value = "");
+        activeTab.querySelectorAll('.results-area b').forEach(b => b.innerText = "N/A");
 
-    // 3. Remove stored data from localStorage based on active tab
-    if (activeTabId === 'tab-measurements') {
-        const resIds1 = ['out-mH','out-antH','out-hC','out-antDist','out-a1F','out-a1S','out-a1U','out-a2F','out-a2S','out-a2U'];
-        resIds1.forEach(id => localStorage.removeItem('res_' + id));
-        localStorage.setItem('show_res1', 'false'); 
-    } else if (activeTabId === 'tab-calibration') {
-        const resIds2 = ['out-boomL_cal','out-stickL_cal','out-bsv','out-s2','out-s3','out-s4','out-s5','out-ts','out-t1','out-t6'];
-        resIds2.forEach(id => localStorage.removeItem('res_' + id));
-        localStorage.setItem('show_res2', 'false');
+        if (activeTabId === 'tab-measurements') {
+            const resIds1 = ['out-mH','out-antH','out-hC','out-antDist','out-a1F','out-a1S','out-a1U','out-a2F','out-a2S','out-a2U'];
+            resIds1.forEach(id => localStorage.removeItem('res_' + id));
+            localStorage.setItem('show_res1', 'false'); 
+        } else if (activeTabId === 'tab-calibration') {
+            const resIds2 = ['out-boomL_cal','out-stickL_cal','out-bsv','out-s2','out-s3','out-s4','out-s5','out-ts','out-t1','out-t6'];
+            resIds2.forEach(id => localStorage.removeItem('res_' + id));
+            localStorage.setItem('show_res2', 'false');
+        }
+
+        autoSave();
     }
-
-    // 4. Update the saved inputs state
-    autoSave();
-}
 
     function resetHistoryOnly() {
-    // Show the custom modal instead of browser confirm
-    document.getElementById('customConfirm').style.display = 'flex';
-}
-
-function closeConfirm(isConfirmed) {
-    // Hide the modal
-    document.getElementById('customConfirm').style.display = 'none';
-    
-    // Execute reset if OK is clicked
-    if (isConfirmed) {
-        localStorage.clear();
-        location.reload();
+        document.getElementById('customConfirm').style.display = 'flex';
     }
-}
 
-let currentExportSource = '';
+    function closeConfirm(isConfirmed) {
+        document.getElementById('customConfirm').style.display = 'none';
+        if (isConfirmed) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+
+    let currentExportSource = '';
 
     function generateHTMLReport(title, dataRows) {
         let rowsHtml = '';
@@ -939,61 +778,18 @@ let currentExportSource = '';
             <title>${title}</title>
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
-                
-                @page {
-                    size: A4;
-                    margin: 15mm;
-                }
-
-                body { 
-                    font-family: 'Inter', sans-serif; 
-                    line-height: 1.5; 
-                    color: #334155; 
-                    margin: 0; 
-                    padding: 15px; 
-                }
-
-                .report-container { 
-                    width: 100%; 
-                    max-width: 100%; 
-                    margin: 0 auto; 
-                    border: 1px solid #cbd5e1; 
-                    padding: 30px;
-                    box-sizing: border-box;
-                    border-radius: 8px;
-                }
-
-                .main-title { 
-                    color: #0f172a; 
-                    font-size: 24px; 
-                    font-weight: 800; 
-                    margin: 0 0 20px 0;
-                    padding-bottom: 12px;
-                    border-bottom: 4px solid #38bdf8;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
-                }
-
-                .data-table { 
-                    width: 100%; 
-                    border-collapse: collapse; 
-                }
-
-                @media print {
-                    body { padding: 0; }
-                    .report-container { 
-                        border: none; 
-                        padding: 0;
-                    }
-                }
+                @page { size: A4; margin: 15mm; }
+                body { font-family: 'Inter', sans-serif; line-height: 1.5; color: #334155; margin: 0; padding: 15px; }
+                .report-container { width: 100%; max-width: 100%; margin: 0 auto; border: 1px solid #cbd5e1; padding: 30px; box-sizing: border-box; border-radius: 8px; }
+                .main-title { color: #0f172a; font-size: 24px; font-weight: 800; margin: 0 0 20px 0; padding-bottom: 12px; border-bottom: 4px solid #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; }
+                .data-table { width: 100%; border-collapse: collapse; }
+                @media print { body { padding: 0; } .report-container { border: none; padding: 0; } }
             </style>
         </head>
         <body>
             <div class="report-container">
                 <h1 class="main-title">${title}</h1>
-                <table class="data-table">
-                    ${rowsHtml}
-                </table>
+                <table class="data-table">${rowsHtml}</table>
             </div>
         </body>
         </html>`;
@@ -1006,13 +802,9 @@ let currentExportSource = '';
 
     function processExport(type) {
         document.getElementById('exportModal').style.display = 'none';
-        
         if (type === 'single') {
-            if (currentExportSource === 'geometry') {
-                exportReport1();
-            } else {
-                exportReport2();
-            }
+            if (currentExportSource === 'geometry') exportReport1();
+            else exportReport2();
         } else if (type === 'both') {
             exportCombinedReport();
         }
@@ -1031,10 +823,7 @@ let currentExportSource = '';
             {
                 label: "Date", 
                 value: new Date().toLocaleDateString('en-GB', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: '2-digit' 
+                    weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' 
                 })
             }
         ];
@@ -1047,12 +836,10 @@ let currentExportSource = '';
             {label: "Antenna Heading", value: document.getElementById('out-antH').innerText},
             {label: "Heading Correction", value: document.getElementById('out-hC').innerText},
             {label: "Antenna H-Distance", value: document.getElementById('out-antDist').innerText},
-            
             {label: "Antenna 1 Offsets", isHeader: true},
             {label: "Starboard (X)", value: document.getElementById('out-a1S').innerText},
             {label: "Forward (Y)", value: document.getElementById('out-a1F').innerText},
             {label: "Up (Z)", value: document.getElementById('out-a1U').innerText},
-            
             {label: "Antenna 2 Offsets", isHeader: true},
             {label: "Starboard (X)", value: document.getElementById('out-a2S').innerText},
             {label: "Forward (Y)", value: document.getElementById('out-a2F').innerText},
@@ -1066,13 +853,11 @@ let currentExportSource = '';
             {label: "Boom Length", value: document.getElementById('out-boomL_cal').innerText},
             {label: "Stick Length", value: document.getElementById('out-stickL_cal').innerText},
             {label: "Boom Stick V (ΔZ)", value: document.getElementById('out-bsv').innerText},
-            
             {label: "SUPPORT LEVER ATTACHMENT", isHeader: true},
             {label: "(S2) Hor. Offset", value: document.getElementById('out-s2').innerText},
             {label: "(S3) Z Offset", value: document.getElementById('out-s3').innerText},
             {label: "(S4) Support Lever Length", value: document.getElementById('out-s4').innerText},
             {label: "(S5) Drive Lever Length", value: document.getElementById('out-s5').innerText},
-            
             {label: "BUCKET", isHeader: true},
             {label: "(T1) Bucket Length", value: document.getElementById('out-t1').innerText},
             {label: "(T5) Holes Separation", value: document.getElementById('out-ts').innerText},
@@ -1104,11 +889,7 @@ let currentExportSource = '';
 
     function exportCombinedReport() {
         const mNo = document.getElementById('machine_no').value || "N/A";
-        const rows = [
-            ...getSurveyInfoRows(), 
-            ...getGeometryDataRows(), 
-            ...getCraneDataRows()
-        ];
+        const rows = [...getSurveyInfoRows(), ...getGeometryDataRows(), ...getCraneDataRows()];
 
         const blob = new Blob([generateHTMLReport("Excavator Geometry & Crane Config Report", rows)], {type: 'text/html'});
         const link = document.createElement('a'); 
@@ -1116,36 +897,23 @@ let currentExportSource = '';
         link.download = `Full_Report_${mNo}.html`; 
         link.click();
     }
-    </script>
 
-    <script>
-    // 1. Splash Screen Display Logic
+    // Splash Screen & SW Registration
     window.addEventListener('load', function() {
-        // Wait for 1.5 seconds before starting the fade-out
         setTimeout(function() {
             const splash = document.getElementById('splash-screen');
             if (splash) {
-                // Apply fade effect
                 splash.style.opacity = '0';
-                
-                // Completely remove from DOM after transition
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                }, 500); 
+                setTimeout(() => { splash.style.display = 'none'; }, 500); 
             }
         }, 1500); 
     });
 
-    // 2. Progressive Web App (PWA) Service Worker Registration
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
-                .then(reg => {
-                    console.log('PWA: Service Worker Registered Successfully');
-                })
-                .catch(err => {
-                    console.error('PWA: Service Worker Registration Failed', err);
-                });
+                .then(reg => console.log('PWA: Service Worker Registered Successfully'))
+                .catch(err => console.error('PWA: Service Worker Registration Failed', err));
         });
     }
 </script>
