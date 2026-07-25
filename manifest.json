@@ -1,26 +1,56 @@
 {
   "short_name": "EX. Geometry",
   "name": "Excavator Geometry",
-  "id": "./index.html",
+  "id": "/",
   "description": "Machine Geometry Calculation and Calibration Assistant for site surveyors.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
   "icons": [
     {
       "src": "icon-192.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
       "src": "icon-512.png",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ],
-  "start_url": "./index.html",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
-  "display": "standalone",
-  "orientation": "portrait",
-  "scope": "./"
+  "screenshots": [
+    {
+      "src": "screenshot-mobile-1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Geometry Calculation Screen"
+    },
+    {
+      "src": "screenshot-mobile-2.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Crane Config Screen"
+    },
+    {
+      "src": "screenshot-mobile-3.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Diagram Reference Screen"
+    },
+    {
+      "src": "screenshot-mobile-4.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Report Export Screen"
+    }
+  ]
 }
