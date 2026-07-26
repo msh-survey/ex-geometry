@@ -3,6 +3,6 @@
       "target": {
         "namespace": "android_app",
         "package_name": "io.github.msh_survey.twa",
-        "sha256_cert_fingerprints": ["60:B9:22:55:2D:47:74:9F:5E:94:2C:EA:43:F5:5C:33:2C:B9:4C:C8:FE:A7:4E:47:16:A8:DF:16:1C:9A:D6:6D"]
+        "sha256_cert_fingerprints": ["D6:08:92:CE:CA:D0:D4:A0:0F:CD:44:54:3F:D1:51:F4:1F:31:87:D8:C1:5C:FB:D9:8E:09:47:8A:D7:2A:E0:7C"]
       }
     }]
