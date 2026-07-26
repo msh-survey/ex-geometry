@@ -641,48 +641,50 @@
         }
 
         function calcCalibration() {
-            const BP = getP('bp'), ST = getP('st'), BU = getP('bu'), S3 = getP('s3'), S4 = getP('s4'), S5 = getP('s5'), T1 = getP('t1');
-            const s1 = (ST && BU) ? dist3D(ST, BU) : null;
-            let s3_val = null, s2_val = null, t6_val = null, bsv = null;
+    const BTBS = getP('bp'), ST = getP('st'), BP = getP('bu'), S3 = getP('s3'), S4 = getP('s4'), S5 = getP('s5'), T1 = getP('t1');
+    const s1 = (ST && BP) ? dist3D(ST, BP) : null;
+    let s3_val = null, s2_val = null, t6_val = null, bsv = null;
+            
+    if (BTBS && ST) bsv = ST.z - BTBS.z;
 
-            if (BP && ST) bsv = ST.z - BP.z;
-            if (s1 && S3) {
-                const v_st_bu = { x: BU.x - ST.x, y: BU.y - ST.y, z: BU.z - ST.z };
-                const v_st_s3 = { x: S3.x - ST.x, y: S3.y - ST.y, z: S3.z - ST.z };
-                const cp = { x: v_st_s3.y * v_st_bu.z - v_st_s3.z * v_st_bu.y, y: v_st_s3.z * v_st_bu.x - v_st_s3.x * v_st_bu.z, z: v_st_s3.x * v_st_bu.y - v_st_s3.y * v_st_bu.x };
-                s3_val = Math.sqrt(cp.x**2 + cp.y**2 + cp.z**2) / s1;
-                const v_bu_st = { x: ST.x - BU.x, y: ST.y - BU.y, z: ST.z - BU.z };
-                const v_bu_s3 = { x: S3.x - BU.x, y: S3.y - BU.y, z: S3.z - BU.z };
-                s2_val = (v_bu_s3.x * v_bu_st.x + v_bu_s3.y * v_bu_st.y + v_bu_s3.z * v_bu_st.z) / s1; 
-            }
-            if (T1 && BU && S5) {
-                const vT1 = { x: T1.x - BU.x, y: T1.y - BU.y, z: T1.z - BU.z };
-                const vS5 = { x: S5.x - BU.x, y: S5.y - BU.y, z: S5.z - BU.z };
-                const m1 = Math.sqrt(vT1.x**2 + vT1.y**2 + vT1.z**2), m2 = Math.sqrt(vS5.x**2 + vS5.y**2 + vS5.z**2);
-                if (m1 > 0 && m2 > 0) t6_val = Math.acos(Math.max(-1, Math.min(1, (vT1.x * vS5.x + vT1.y * vS5.y + vT1.z * vS5.z) / (m1 * m2)))) * (180 / Math.PI);
-            }
+    if (s1 && S3) {
+        const v_st_bu = { x: BP.x - ST.x, y: BP.y - ST.y, z: BP.z - ST.z };
+        const v_st_s3 = { x: S3.x - ST.x, y: S3.y - ST.y, z: S3.z - ST.z };
+        const cp = { x: v_st_s3.y * v_st_bu.z - v_st_s3.z * v_st_bu.y, y: v_st_s3.z * v_st_bu.x - v_st_s3.x * v_st_bu.z, z: v_st_s3.x * v_st_bu.y - v_st_s3.y * v_st_bu.x };
+        s3_val = Math.sqrt(cp.x**2 + cp.y**2 + cp.z**2) / s1;
+        const v_bu_st = { x: ST.x - BP.x, y: ST.y - BP.y, z: ST.z - BP.z };
+        const v_bu_s3 = { x: S3.x - BP.x, y: S3.y - BP.y, z: S3.z - BP.z };
+        s2_val = (v_bu_s3.x * v_bu_st.x + v_bu_s3.y * v_bu_st.y + v_bu_s3.z * v_bu_st.z) / s1; 
+    }
 
-            const res = {
-                'out-boomL_cal': format(dist3D(BP, ST), " m"),
-                'out-stickL_cal': format(s1, " m"),
-                'out-bsv': format(bsv, " m"),
-                'out-s2': format(s2_val, " m"),
-                'out-s3': format(s3_val, " m"),
-                'out-s4': format(dist3D(S3, S4), " m"),
-                'out-s5': format(dist3D(S4, S5), " m"),
-                'out-ts': format(dist3D(BU, S5), " m"), 
-                'out-t1': format(dist3D(T1, BU), " m"), 
-                'out-t6': format(t6_val, "°")
-            };
+    if (T1 && BP && S5) {
+        const vT1 = { x: T1.x - BP.x, y: T1.y - BP.y, z: T1.z - BP.z };
+        const vS5 = { x: S5.x - BP.x, y: S5.y - BP.y, z: S5.z - BP.z };
+        const m1 = Math.sqrt(vT1.x**2 + vT1.y**2 + vT1.z**2), m2 = Math.sqrt(vS5.x**2 + vS5.y**2 + vS5.z**2);
+        if (m1 > 0 && m2 > 0) t6_val = Math.acos(Math.max(-1, Math.min(1, (vT1.x * vS5.x + vT1.y * vS5.y + vT1.z * vS5.z) / (m1 * m2)))) * (180 / Math.PI);
+    }
 
-            for (let id in res) {
-                document.getElementById(id).innerHTML = res[id];
-                localStorage.setItem('res_'+id, res[id]);
-            }
-            document.getElementById('resultsCalibration').style.display = "block";
-            localStorage.setItem('show_res2', 'true');
-            saveHistory('calibration', res);
-        }
+    const res = {
+        'out-boomL_cal': format(dist3D(BTBS, ST), " m"), // طول البوم بين مركز البوم ومسمار الستيك
+        'out-stickL_cal': format(s1, " m"),
+        'out-bsv': format(bsv, " m"),
+        'out-s2': format(s2_val, " m"),
+        'out-s3': format(s3_val, " m"),
+        'out-s4': format(dist3D(S3, S4), " m"),
+        'out-s5': format(dist3D(S4, S5), " m"),
+        'out-ts': format(dist3D(BP, S5), " m"), 
+        'out-t1': format(dist3D(T1, BP), " m"), 
+        'out-t6': format(t6_val, "°")
+    };
+
+    for (let id in res) {
+        document.getElementById(id).innerHTML = res[id];
+        localStorage.setItem('res_'+id, res[id]);
+    }
+    document.getElementById('resultsCalibration').style.display = "block";
+    localStorage.setItem('show_res2', 'true');
+    saveHistory('calibration', res);
+}
 
         function autoSave() {
             const inputs = {};
